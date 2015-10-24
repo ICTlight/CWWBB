@@ -1,0 +1,12 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+#logindiv{
+    text-align:left;
+    width:32%;
+    position:right;
+    height:100%;
+    background: #f2f2f2;
+}

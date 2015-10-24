@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.domain.user.Company">
+
+<resultMap id="companyMapper"  type="com.app.domain.user.Company">
+    	<id  property="userid" column="userid"  javaType="long" jdbcType="NUMERIC"/>
+        <result property="username" column="username"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="usertype" column="usertype"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="email" column="email"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="companyid" column="companyids"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="companyname" column="companyname"  javaType="java.lang.String" jdbcType="VARCHAR"/>        
+        <result property="address" column="address"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="password"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="connectname" column="connectname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="connectphone" column="connectphone"  javaType="java.lang.String" jdbcType="VARCHAR"/>       
+        <result  property="status" column="status"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="validate_code" column="validate_code"  javaType="java.lang.String" jdbcType="VARCHAR"/>       
+        <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
+        <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>        
+    </resultMap>
+    
+    <insert id="saveCompany" parameterType="com.app.domain.user.Company">    
+      INSERT INTO ss_company (userid,username,usertype,email,companyid,companyname,address,password,connectname,connectphone,status,createtime,updatetime,validate_code)
+      VALUES(
+        #{userid,jdbcType=NUMERIC},
+        #{username,jdbcType=VARCHAR},
+        #{usertype,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR},
+        #{companyid,jdbcType=VARCHAR},
+        #{companyname,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR},
+        #{connectname,jdbcType=VARCHAR},
+        #{connectphone,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR},  
+        #{createtime,jdbcType=DATE},
+        #{updatetime,jdbcType=DATE},
+        #{validate_code,jdbcType=VARCHAR}    
+     )
+  </insert>
+	<!-- 根据id查找用户信息 -->
+  <select id="findCompanyByUserId" parameterType="Long" resultType="com.app.domain.user.Company">
+  	<![CDATA[
+  	 SELECT * FROM ss_company WHERE userid=#{userid}
+  	]]>
+  </select>
+  
+  <update id="updateCompanybyid" parameterType="com.app.domain.user.Company">      
+      UPDATE SS_COMPANY 
+      <set>
+      <if test="username!=null and username!=''"> 
+      		username=#{username,jdbcType=VARCHAR},
+      </if>
+      <if test="email!=null and email!=''"> 
+      		email=#{email,jdbcType=VARCHAR},
+      </if>
+      <if test="companyid!=null and companyid!=''"> 
+      		companyid=#{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="companyname!=null and companyname!=''"> 
+      		companyname=#{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address!=null and address!=''"> 
+      		 address=#{address,jdbcType=VARCHAR},
+      </if>
+      <if test="password!=null and password!=''"> 
+      		password=#{password,jdbcType=VARCHAR},
+      </if>
+      <if test="connectname!=null and connectname!=''"> 
+      		connectname=#{connectname,jdbcType=VARCHAR},
+      </if>
+      <if test="connectphone!=null and connectphone!=''"> 
+      		connectphone=#{connectphone,jdbcType=VARCHAR},
+      </if>
+      <if test="status!=null and status!=''"> 
+      		status=#{status,jdbcType=VARCHAR}
+      </if>
+      </set>
+      WHERE userid=#{userid}
+  </update>
+  
+  <select id="findCompanyByCompanyid" parameterType="String" resultType="com.app.domain.user.Company">
+  	<![CDATA[
+  	 SELECT * FROM SS_COMPANY WHERE companyid=#{companyid}
+  	]]>
+  </select>
+ 
+ 	<!-- 查询count -->
+  <select id = "findUserCount" parameterType = "com.app.domain.user.Person" resultType = "int" statementType="STATEMENT" >
+  
+       SELECT COUNT(*) FROM SS_USER WHERE 1=1
+  	   <if test="rules!=null">
+	       <foreach item="item" index="index" collection="rules" open="" separator=" " close="">
+	               ${groupOp}  ${item.field}   LIKE '%${item.data}%'
+	       </foreach>
+       </if>
+  </select>
+  
+  
+  
+	<select id="findAllUser" resultType="com.app.domain.user.Person">
+		<![CDATA[
+		 SELECT * FROM SS_USER ORDER BY USER_ID DESC 
+		]]>
+	</select>
+    
+    
+  
+  
+  
+  
+  
+  <update id="updateUserOrderNum" parameterType="com.app.domain.user.Person">
+  	UPDATE SS_USER SET ORDER_ID=#{order_id},CREATOR=#{creator},CREATE_TIME=#{create_Time} WHERE USER_ID=#{user_Id}
+  </update>
+  
+  <update id="updateUserPasswordByID" parameterType="com.app.domain.user.Person">
+  	UPDATE SS_USER SET PASSWORD=#{password},CREATOR=#{creator},CREATE_TIME=#{create_Time} WHERE USER_ID=#{user_Id}
+  </update>
+  
+  <update id="updateUserStatuByID" parameterType="com.app.domain.user.Person">
+  	UPDATE SS_USER SET IS_STOP=#{is_Stop} WHERE USER_ID=#{user_Id}
+  </update>
+  
+  <delete id="deleteUserByID" parameterType="Long">
+  	DELETE FROM SS_USER WHERE USER_ID=#{user_id}
+  </delete>
+  
+  <select id="findByUser" parameterType="com.app.domain.user.Person" resultType="com.app.domain.user.Person">
+  	<![CDATA[
+  	 SELECT * FROM SS_USER WHERE PASSWORD=#{password} and login_Name = #{login_Name} and user_Type = #{user_Type}
+  	]]>
+  </select>
+</mapper>

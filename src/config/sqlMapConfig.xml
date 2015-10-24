@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration    
+    PUBLIC "-//mybatis.org//DTD Config 3.1//EN"    
+    "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+<configuration>	
+	<mappers>
+		<!-- PersonMapper.xml 用户详细信息 ben mapper -->
+		<mapper resource="com/app/domain/user/PersonMapper.xml" />
+		<mapper resource="com/app/domain/user/CompanyMapper.xml" />
+		<mapper resource="com/app/domain/user/UserMapper.xml" />
+		
+		
+	</mappers>
+</configuration>
+    

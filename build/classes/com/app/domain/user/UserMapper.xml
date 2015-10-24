@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.domain.user.User">
+
+<resultMap id="userMapper"  type="com.app.domain.user.User">
+    	<id  property="userid" column="userid"  javaType="long" jdbcType="NUMERIC"/>
+        <result property="username" column="username"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="email" column="email"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="password"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="status" column="status"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="usertype" column="usertype"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
+        <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>        
+    </resultMap>
+    
+    <insert id="saveUser" parameterType="com.app.domain.user.User">    
+      INSERT INTO ss_user (userid,username,email,password,status,usertype,createtime,updatetime)
+      VALUES(
+        #{userid,jdbcType=NUMERIC},
+        #{username,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR},        
+        #{password,jdbcType=VARCHAR},        
+        #{status,jdbcType=VARCHAR},
+        #{usertype,jdbcType=VARCHAR},   
+        #{createtime,jdbcType=DATE},
+        #{updatetime,jdbcType=DATE}    
+     )
+  </insert>
+	<!-- 根据id查找用户信息 -->
+  <select id="findUserByuserid" parameterType="Long" resultType="com.app.domain.user.User">
+  	<![CDATA[
+  	 SELECT * FROM ss_user WHERE userid=#{userid}
+  	]]>
+  </select>
+  
+  <select id="findUserByuserame" parameterType="String" resultType="com.app.domain.user.User">
+  	<![CDATA[
+  	 SELECT * FROM SS_USER WHERE username=#{username}
+  	]]>
+  </select>
+  
+  <select id="getuserid" parameterType="Long" resultType="Long">
+  	<![CDATA[
+  	 SELECT _nextval('ss_user')
+  	]]>
+  </select>
+  
+  <select id = "findUsernameCount" parameterType = "String" resultType = "int" >
+       SELECT COUNT(*) FROM SS_USER WHERE username=#{username}
+  </select>
+  <select id = "findEmailCount" parameterType = "String" resultType = "int">
+       SELECT COUNT(*) FROM SS_USER WHERE email=#{email}
+  </select>
+  
+  <update id="updateUserbyid" parameterType="com.app.domain.user.User">      
+      UPDATE SS_USER 
+      <set>
+      <if test="username!=null and username!=''"> 
+      		username=#{username,jdbcType=VARCHAR},
+      </if>
+      <if test="email!=null and email!=''"> 
+      		email=#{email,jdbcType=VARCHAR},
+      </if>      
+      <if test="password!=null and password!=''"> 
+      		password=#{password,jdbcType=VARCHAR},
+      </if>     
+      <if test="status!=null and status!=''"> 
+      		status=#{status,jdbcType=VARCHAR}
+      </if>
+      </set>
+      WHERE userid=#{userid}
+  </update>
+</mapper>
