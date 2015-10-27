@@ -34,7 +34,7 @@
 	                <wt-leftmenu></wt-leftmenu>
 	            </div>
 	            <div class="centerpanel">                
-                <data-ui-view></data-ui-view>
+                 <data-ui-view></data-ui-view> 
             </div>
         </div>
     </div>

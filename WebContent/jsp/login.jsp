@@ -57,16 +57,15 @@
        	       },  
        	      dataType: "json",   
        	      success : function(data) { 
-     	          if(data.info=="success"){   
-     	        	 alert("登陆成功");     	        	  
+     	          if(data.info=="success"){       	        	  
      	        	document.getElementById("loginmsg").innerHTML=""; 
-     	        	var torefresh = document.getElementById("logotorefresh");
+     	        	var torefresh = document.getElementById("tomypage");
       	        	torefresh.click();
      	          }   
      	          else if(data.info=="noemailexam"){
      	        	alert("您的邮箱未激活，请先激活您的邮箱！");
      	        	document.getElementById("loginmsg").innerHTML="";
-     	        	var torefresh = document.getElementById("logotorefresh");
+     	        	var torefresh = document.getElementById("tomypage");
       	        	torefresh.click();
      	          }
      	          else{

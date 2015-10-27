@@ -6,12 +6,12 @@
 </head>
 <body>
 	<%session = request.getSession();   %>
-<!-- 	<h1 id="usertype" style="display:none" ><%=session.getAttribute("usertype")%></h1>
+ 	<!-- <h1 id="usertype" style="display:none" ><%=session.getAttribute("usertype")%></h1>
 	<h1 id="userid" style="display:none" ><%=session.getAttribute("userid")%></h1>
 	<h1 id="username" style="display:none" ><%=session.getAttribute("username")%></h1>
 	<h1 id="status" style="display:none" ><%=session.getAttribute("status")%></h1>
-	<h1 id="email" style="display:none" ><%=session.getAttribute("email")%></h1> -->
-	
+	<h1 id="email" style="display:none" ><%=session.getAttribute("email")%></h1>  -->
+	<a id="tomypage" href="/CWWBB/jsp/mypage.jsp" style="display:none"></a>
 	        <div class="box">
             <div id="logo"><img src="<%=request.getContextPath() %>/assets/img/fesco90.png" alt="logo" /><a id="logotorefresh" href="/CWWBB/jsp/firstpage.jsp"></a></div>
             <div class="mobile-nav">
@@ -25,11 +25,12 @@
                                 <li><a href="/CWWBB/jsp/firstpage.jsp#planAndTrack3">产品3</a></li>
                             </ul>
                         </li>
-                        <li><a href="">服务支持1</a></li>
+                        <li><a href="">服务支持</a></li>
                         <li><a href="">移动版</a></li>
                         <li><a href="">FAQ</a></li>
                         <li><a href="">注册</a></li>
                         <li><a href="">登陆</a></li>
+                        
                     </ul>
                 </div>
             </div>
@@ -62,9 +63,9 @@
                 </ul>
             </div>
             <div id="usersNav" >
-                <ul>
+                <ul>              	
                     <li><a href="/CWWBB/jsp/regist.jsp" >注册</a></li>
-                    <li><a href="/CWWBB/jsp/login.jsp" >登陆</a></li>
+                    <li><a href="/CWWBB/jsp/login.jsp" >登陆</a></li>                  
                 </ul>
             </div>
         </div>

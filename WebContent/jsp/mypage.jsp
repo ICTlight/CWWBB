@@ -49,7 +49,7 @@ function isGongzi(){
 	      </li>
 	      <li>
 	        <a  onclick="isDaka()">
-	          <i class="fa fa-fw fa-lg fa-download "></i> 
+	          <i class="fa fa-fw fa-lg fa-comments-o"></i> 
 	          <span>打卡</span>
 	        </a>
 	      </li>
