@@ -4,12 +4,14 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
 <configuration>	
 	<mappers>
-		<!-- PersonMapper.xml 用户详细信息 ben mapper -->
+		<!-- 用户相关 -->
 		<mapper resource="com/app/domain/user/PersonMapper.xml" />
 		<mapper resource="com/app/domain/user/CompanyMapper.xml" />
 		<mapper resource="com/app/domain/user/UserMapper.xml" />
 		
-		
+		<!-- 工资模板相关 -->
+		<mapper resource="com/app/domain/salary/SalaryDemoMapper.xml" />
+		<mapper resource="com/app/domain/salary/SalaryDemoEleMapper.xml" />
 	</mappers>
 </configuration>
     

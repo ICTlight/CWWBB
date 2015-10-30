@@ -25,15 +25,20 @@
 		#list2 { float:right; }
 		.placeHolder div { background-color:white !important; border:dashed 1px gray !important; }
 	</style>
+	<script type="text/javascript">
+     $(function(){
+	     $(document).on("hidden.bs.modal", function (e) {
+	 	    $(e.target).removeData("bs.modal").find(".modal-content").empty();
+	 	});
+     });
+     </script>
      <script type="text/javascript">     
-     $(document).on("hidden.bs.modal", function (e) {
-		    $(e.target).removeData("bs.modal").find(".modal-content").empty();
-		});
        $(function(){
+    	   
 	       //默认选择tab
-          $("#labacTab a:first").tab('show');//初始化显示哪个tab   
+          $("#demoeleTab a:first").tab('show');//初始化显示哪个tab   
           //tab点击事件
-          $("#labacTab a").click(function (e) {
+          $("#demoeleTab a").click(function (e) {
          	      	  
          	  if($(this).attr("href") =="#tab_1_10"){	 
 	         	  $(this).tab('show');	
@@ -64,7 +69,7 @@
 				<input type="hidden" id="acquirer_id" name = "acquirer_id"/> 
 	            <div class="modal-body">	                
                       <div class="tabbable tabbable-custom">
-                        <ul class="nav nav-tabs" id="labacTab">
+                        <ul class="nav nav-tabs" id="demoeleTab">
                           <li><a href="#tab_1_10">基本项</a></li>
                           <li><a href="#tab_1_11"> 社保公积金项</a></li>                          
                          </ul>
@@ -158,11 +163,8 @@
 					</ul>					
 					<input name="list1SortOrder" type="hidden" />
 					<script type="text/javascript">
-					alert("1");
 						$("#list1, #list2").dragsort({ dragSelector: "div", dragBetween: true, dragEnd: saveOrder, placeHolderTemplate: "<li class='placeHolder'><div></div></li>" });
-						alert("2");
 						function saveOrder() {
-							alert("3");
 							var data = $("#list1 li").map(function() { return $(this).children().html(); }).get();
 							$("input[name=list1SortOrder]").val(data.join("|"));
 						};

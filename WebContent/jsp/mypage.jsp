@@ -29,11 +29,15 @@
 		}
 	</style>
 	<script type="text/javascript">
+	
 		$(function() {
+			$(document).on("hidden.bs.modal", function (e) {
+			    $(e.target).removeData("bs.modal").find(".modal-content").empty();
+			});
 			//默认选择tab
-	          $("#labacTab a:first").tab('show');//初始化显示哪个tab   
+	          $("#salTab a:first").tab('show');//初始化显示哪个tab   
 	          //tab点击事件
-	          $("#labacTab a").click(function (e) {
+	          $("#salTab a").click(function (e) {
 	        	//以下tab为薪酬计算用   	  
 	         	  if($(this).attr("href") =="#tab_1_1"){	 
 		         	  $(this).tab('show');	
@@ -61,6 +65,30 @@
 			document.getElementById("gongzi").style.display="";
 			document.getElementById("daka").style.display="none";
 		}
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		//动态添加现有工资模板
+		$.ajax({  
+	     	type : "POST",
+	 		url : "<%=request.getContextPath() %>/getSalDemoLists",
+	 		async : false,
+	 		dataType : "json",
+	 		success : function(result){
+	 			if(result != null && result.length > 0) {
+ 			       for(var i = 0; i<result.length; i++) {
+ 			    	   var name = result[i].saldemoname;
+ 					    var id = result[i].saldemoid; 					    
+ 					    brick = '<div id="'+id+'" class="brick small demos"><a class="delete" href="#"">&times;</a>'+name+'</div>'; 
+ 				      event.preventDefault();
+ 				      event.stopPropagation();
+ 				      $('.gridly').append(brick);
+		       		}
+ 			      return $('.gridly').gridly();
+	 			}	 			
+	 		}
+	      }); 
+	});
 	</script>
 	<!-- 工资模板相关 -->
 	<script type="text/javascript">
@@ -104,10 +132,9 @@
 		      torefresh();
 		      return $('.gridly').gridly('layout');
 		    });
-		    $(document).on("click", ".add", function(event) {
-		    	$("#href_addsal").html("");
-		    	openAddModal("addsaldemoModel","<%=request.getContextPath() %>/addsaldemoInfo","href_addsal");
-		    });
+		     $(document).on("click", ".add", function(event) {
+		    	 openadddemo();		    	  
+		    }); 
 		    return $('.gridly').gridly();
 		  });
 	</script>
@@ -129,8 +156,7 @@
 		      return $('.elegridly').gridly('layout');
 		    });
 		    $(document).on("click", ".addele", function(event) {
-		    	$("#href_addele").html("");
-		    	openAddModal("addsaleleModel","<%=request.getContextPath() %>/addsaleleInfo","href_addele");
+		    	openaddele();
 		    });
 		    return $('.elegridly').gridly(); 
 		  });
@@ -153,8 +179,7 @@
 		      return $('.pelgridly').gridly('layout');
 		    });
 		    $(document).on("click", ".addpel", function(event) {
-		    	$("#href_addpel").html("");
-		    	openAddModal("addsalpelModel","<%=request.getContextPath() %>/addsalpelInfo","href_addpel");
+		    	opeaddpel();
 		    });
 		    return $('.pelgridly').gridly(); 
 		  });
@@ -164,7 +189,18 @@
 			var torefresh = document.getElementById("togongzipage");
 	      	torefresh.click();
 		}
-		
+		function openaddele(){
+			$("#href_addele").html("");
+	    	openAddModal("addsaleleModel","<%=request.getContextPath() %>/addsaleleInfo","href_addele");	
+		}
+		function openadddemo(){
+			$("#href_addsal").html("");
+	    	openAddModal("addsaldemoModel","<%=request.getContextPath() %>/addsaldemoInfo","href_addsal");
+		}
+		function opeaddpel(){
+			$("#href_addpel").html("");
+	    	openAddModal("addsalpelModel","<%=request.getContextPath() %>/addsalpelInfo","href_addpel");
+		}
 		function openupdatepel(){
 	  		$("#href_addpel").html("");
 	    	openAddModal("updatesalpelModel","<%=request.getContextPath() %>/updatesalpelInfo","href_addpel");	
@@ -218,7 +254,7 @@
 			<div class="col-lg-11">
 				<h2>&nbsp;&nbsp;&nbsp;&nbsp;工作台</h2>
                  <div class="tabbable tabbable-custom">
-                     <ul class="nav nav-tabs" id="labacTab">
+                     <ul class="nav nav-tabs" id="salTab">
                           <li><a href="#tab_1_1">&nbsp;&nbsp;&nbsp;&nbsp;薪酬模板&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                           <li><a href="#tab_1_2">&nbsp;&nbsp;&nbsp;&nbsp;薪酬计算&nbsp;&nbsp;&nbsp;&nbsp;</a></li>                          
                      </ul>
@@ -231,13 +267,6 @@
 				<div  class='content row'>			      
 			      <div id="productdemo" class='example'>
 			        <div class='gridly'>
-			          <div id="demo1" class='brick small demos'>
-			            <a class='delete' href='#'>&times;</a>工资模板1</div>
-			          <div id="demo2" class='brick small demos'>
-			            <a class='delete' href='#'>&times;</a>工资模板2</div>
-			          <div id="demo3" class='brick small demos'>
-			            <a class='delete' href='#'>&times;</a>工资模板3</div>
-			          <div id="demo4" class='brick small demos'><a class='delete' href='#'>&times;</a>工资模板4</div>
 			        </div>
 			        <p class='actions adddemosbt'>
 			          <button id="adddemobt"  class="add button" data-target="#addsaldemoModel" data-toggle="modal" >添加工资模板</button>        
@@ -277,7 +306,7 @@
 				        </div>
 				        <p class='actions addpelbt'>
 				          <!-- <a class='addpel button' data-target="#addsalpelModel" data-toggle="modal">添加员工</a> -->
-				          <button class="addpel button" data-target="#addsalpelModel" data-toggle="modal" >添加员工</button>
+				          <button class="addpel button" data-target="#addsalpelModel" data-toggle="modal" onclick="openaddpel()">添加员工</button>
 				        </p>
 				        <button id="addpelbt" style="display:none" class="btn btn-primary btn-large" data-target="#updatesalpelModel" data-toggle="modal" onclick="openaddpel()" ></button>
 				        <div id="href_addpel"></div>
@@ -303,7 +332,7 @@
 			<div class="col-lg-11">
 				<h2>&nbsp;&nbsp;&nbsp;&nbsp;工作台</h2>
 				<div class="tabbable tabbable-custom">
-                     <ul class="nav nav-tabs" id="labacTab">
+                     <ul class="nav nav-tabs" id="salTab">
                           <li><a href="#tab_2_1">&nbsp;&nbsp;&nbsp;&nbsp;打卡功能1&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                           <li><a href="#tab_2_2">&nbsp;&nbsp;&nbsp;&nbsp;打卡功能2&nbsp;&nbsp;&nbsp;&nbsp;</a></li>                          
                      </ul>

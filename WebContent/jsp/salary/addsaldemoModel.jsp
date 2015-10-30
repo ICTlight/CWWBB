@@ -4,7 +4,6 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-
     <style type="text/css">    
        .modal-dialo {
 		    position: fixed; 
@@ -18,6 +17,13 @@
 		}
 		
      </style>
+     <script type="text/javascript">
+     $(function(){
+	     $(document).on("hidden.bs.modal", function (e) {
+	 	    $(e.target).removeData("bs.modal").find(".modal-content").empty();
+	 	});
+     });
+     </script>
   </head>
   <body>
     <div class="modal fade" data-backdrop='static' id="addsaldemoModel">
@@ -32,8 +38,6 @@
               </h4>
             </div>
              <form class="form-horizontal"  id="validate-2">
-             	<input type="hidden" id="labour_id" name = "labour_id"/>
-				<input type="hidden" id="acquirer_id" name = "acquirer_id"/> 
 	            <div class="modal-body">	                    		                                          
                     <div class="row">
                     <br>
@@ -42,25 +46,25 @@
 					     <div class="form-group">
 		                     <label class="col-md-5 control-label">模板名称:</label>
 		                     <div class="col-md-7">
-		                       <input type="text" class="form-control required" name="userid"  id="userid" />
+		                       <input type="text" class="form-control required" name="saldemoname"  id="saldemoname" />
 		                     </div>
 		                 </div>
 		                 <div class="form-group">
 		                     <label class="col-md-5 control-label">英文名称:</label>
 		                     <div class="col-md-7">
-		                       <input type="text" class="form-control required" name="usid"  id="usid" />
+		                       <input type="text" class="form-control required" name="saldemoen"  id="saldemoen" />
 		                     </div>
 		                 </div> 
 		                 <div class="form-group">
 		                     <label class="col-md-5 control-label">模板简称:</label>
 		                     <div class="col-md-7">
-		                       <input type="text" class="form-control required" name=""  id="" />
+		                       <input type="text" class="form-control required" name="saldemost"  id="saldemost" />
 		                     </div>
 		                 </div>
 		                 <div class="form-group">
 		                     <label class="col-md-5 control-label">模板描述:</label>
 		                     <div class="col-md-7">
-		                       <input type="text" class="form-control required" name=""  id="" />
+		                       <input type="text" class="form-control required" name="saldemods"  id="saldemods" />
 		                     </div>
 		                 </div>	
 		                 </div>	
@@ -81,11 +85,9 @@
 		$("#validate-2").validate({	
 
         submitHandler:function(form){
-        	alert("添加成功");
-        	$("#addsaldemoModel").modal("hide");
-           <%-- $.ajax({ 
+            $.ajax({ 
                  type: "POST", 
-                 url: "<%=request.getContextPath() %>/saveLabourac",
+                 url: "<%=request.getContextPath() %>/saveSalDemo",
                  async : false, 
                  data: $("#validate-2").serialize(),
                  success: function(mes) { 
@@ -93,13 +95,13 @@
 			 			jQuery("#pbEmpTablelw").trigger("reloadGrid");   			
 			 			$("#addsaldemoModel").modal("hide");
 			 			$("#addsaldemoModel").empty();
-			 			reloadlw();
-			 			alert("需求发布成功");
+			 			torefresh();
+			 			alert("模板添加成功");
 					}else if(mes.message=="error"){
-						alert("需求发布失败");
+						alert("模板添加失败");
 					} 
                  } 
-             }); --%>
+             }); 
         }    
 	    });
 	 });

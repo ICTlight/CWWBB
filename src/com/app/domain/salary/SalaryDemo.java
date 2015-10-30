@@ -1,48 +1,90 @@
 package com.app.domain.salary;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class SalaryDemo implements Serializable {
 
 	private static final long serialVersionUID = -8684417292641431407L;
-	private Long userid;
-	private String username;
-	private String email;
-	private String phone;
-	private String realname;
-	public Long getUserid() {
-		return userid;
+	private Long saldemoid;
+	private String saldemoname;
+	private String saldemoen;
+	private String saldemost;
+	private String saldemods;
+	private Long coid;
+	private String coname;
+	private Date createtime;
+	private Date updatetime;
+	private String createby;
+	private String updateby;
+	public Long getSaldemoid() {
+		return saldemoid;
 	}
-	public void setUserid(Long userid) {
-		this.userid = userid;
+	public void setSaldemoid(Long saldemoid) {
+		this.saldemoid = saldemoid;
 	}
-	public String getUsername() {
-		return username;
+	public String getSaldemoname() {
+		return saldemoname;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setSaldemoname(String saldemoname) {
+		this.saldemoname = saldemoname;
 	}
-	public String getEmail() {
-		return email;
+	public String getSaldemoen() {
+		return saldemoen;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setSaldemoen(String saldemoen) {
+		this.saldemoen = saldemoen;
 	}
-	public String getPhone() {
-		return phone;
+	public String getSaldemost() {
+		return saldemost;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setSaldemost(String saldemost) {
+		this.saldemost = saldemost;
 	}
-	public String getRealname() {
-		return realname;
+	public String getSaldemods() {
+		return saldemods;
 	}
-	public void setRealname(String realname) {
-		this.realname = realname;
+	public void setSaldemods(String saldemods) {
+		this.saldemods = saldemods;
+	}
+	public Long getCoid() {
+		return coid;
+	}
+	public void setCoid(Long coid) {
+		this.coid = coid;
+	}
+	public String getConame() {
+		return coname;
+	}
+	public void setConame(String coname) {
+		this.coname = coname;
+	}
+	public Date getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+	public Date getUpdatetime() {
+		return updatetime;
+	}
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+	public String getCreateby() {
+		return createby;
+	}
+	public void setCreateby(String createby) {
+		this.createby = createby;
+	}
+	public String getUpdateby() {
+		return updateby;
+	}
+	public void setUpdateby(String updateby) {
+		this.updateby = updateby;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 
 }

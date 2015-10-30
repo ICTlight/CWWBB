@@ -18,6 +18,13 @@
 		}
 		
      </style>
+     <script type="text/javascript">
+     $(function(){
+	     $(document).on("hidden.bs.modal", function (e) {
+	 	    $(e.target).removeData("bs.modal").find(".modal-content").empty();
+	 	});
+     });
+     </script>
   </head>
   <body>
     <div class="modal fade" data-backdrop='static' id="updatesalpelModel">

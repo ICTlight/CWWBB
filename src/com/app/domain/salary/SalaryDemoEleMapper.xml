@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.domain.salary.SalaryDemoEle">
+<resultMap id="salaryDemoEleMapper"  type="com.app.domain.salary.SalaryDemoEle">
+    	<id  property="eleid" column="eleid"  javaType="long" jdbcType="NUMERIC"/>
+        <result property="elename" column="elename"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="fixedcode" column="fixedcode"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="isshow" column="isshow"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="cptype" column="cptype"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="precision" column="precision"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="demoid" column="demoid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="demoname" column="demoname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coname" column="coname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="ot" column="ot"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coid" column="coid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="createby" column="createby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="updateby" column="updateby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
+        <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>        
+    </resultMap>
+    
+    <insert id="saveSaldemoEle" parameterType="com.app.domain.salary.SalaryDemoEle">    
+      INSERT INTO sa_demo_base (eleid,elename,fixedcode,isshow,cptype,precision,ot,coid,demoname,demoid,coname,createby,updateby,createtime,updatetime)
+      VALUES(
+        #{eleid,jdbcType=NUMERIC},
+        #{elename,jdbcType=VARCHAR},
+        #{fixedcode,jdbcType=VARCHAR},        
+        #{isshow,jdbcType=VARCHAR},        
+        #{cptype,jdbcType=VARCHAR},
+        #{precision,jdbcType=VARCHAR},
+        #{ot,jdbcType=VARCHAR},
+        #{coid,jdbcType=NUMERIC}, 
+        #{demoname,jdbcType=NUMERIC},  
+        #{demoid,jdbcType=NUMERIC},  
+        #{coname,jdbcType=VARCHAR},        
+        #{createby,jdbcType=VARCHAR},        
+        #{updateby,jdbcType=VARCHAR}, 
+        #{createtime,jdbcType=DATE},
+        #{updatetime,jdbcType=DATE}    
+     )
+  </insert>
+	<!-- 根据id查找用户信息 -->
+  <select id="findSaldemoEleByEleid" parameterType="Long" resultType="com.app.domain.salary.SalaryDemoEle">
+  	<![CDATA[
+  	 SELECT * FROM sa_demo_base WHERE eleid=#{eleid}
+  	]]>
+  </select>
+  
+  <select id="getsaldemoeleid" parameterType="Long" resultType="Long">
+  	<![CDATA[
+  	 SELECT _nextval('sa_demo_base')
+  	]]>
+  </select>
+  
+  <!-- 根据模板id查找模板信息 -->
+  <select id="findSaldemoeleBydemoid" parameterType="Long" resultType="com.app.domain.salary.SalaryDemoEle">
+  	<![CDATA[
+  	 SELECT * FROM sa_demo_base WHERE demoid=#{demoid}
+  	]]>
+  </select>
+  <!-- 根据企业id查找模板信息 -->
+  <select id="findSaldemoeleBycoid" parameterType="Long" resultType="com.app.domain.salary.SalaryDemoEle">
+  	<![CDATA[
+  	 SELECT * FROM sa_demo_base WHERE coid=#{coid}
+  	]]>
+  </select>
+  
+  <select id="findUserByuserame" parameterType="String" resultType="com.app.domain.salary.SalaryDemoEle">
+  	<![CDATA[
+  	 SELECT * FROM SS_USER WHERE username=#{username}
+  	]]>
+  </select>
+  
+  
+  
+  <select id = "findUsernameCount" parameterType = "String" resultType = "int" >
+       SELECT COUNT(*) FROM SS_USER WHERE username=#{username}
+  </select>
+  <select id = "findEmailCount" parameterType = "String" resultType = "int">
+       SELECT COUNT(*) FROM SS_USER WHERE email=#{email}
+  </select>
+  
+  <update id="updateUserbyid" parameterType="com.app.domain.salary.SalaryDemoEle">      
+      UPDATE SS_USER 
+      <set>
+      <if test="username!=null and username!=''"> 
+      		username=#{username,jdbcType=VARCHAR},
+      </if>
+      <if test="email!=null and email!=''"> 
+      		email=#{email,jdbcType=VARCHAR},
+      </if>      
+      <if test="password!=null and password!=''"> 
+      		password=#{password,jdbcType=VARCHAR},
+      </if>     
+      <if test="status!=null and status!=''"> 
+      		status=#{status,jdbcType=VARCHAR}
+      </if>
+      </set>
+      WHERE userid=#{userid}
+  </update>
+</mapper>
