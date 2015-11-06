@@ -3,9 +3,9 @@ package com.app.domain.salary;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class SalaryDemoEle implements Serializable {
+public class SalaryDemoStEle implements Serializable {
 
-	private static final long serialVersionUID = -5909344793834765434L;
+	private static final long serialVersionUID = -2823603200056524890L;
 	private Long eleid;
 	private String eleid_st;
 	private String elename;
@@ -24,47 +24,17 @@ public class SalaryDemoEle implements Serializable {
 	private String createby;
 	private String updateby;
 	private String ot;
-	public String getEleid_st() {
-		return eleid_st;
-	}
-	public void setEleid_st(String eleid_st) {
-		this.eleid_st = eleid_st;
-	}
-	public String getDemoid_st() {
-		return demoid_st;
-	}
-	public void setDemoid_st(String demoid_st) {
-		this.demoid_st = demoid_st;
-	}
-	public String getCoid_st() {
-		return coid_st;
-	}
-	public void setCoid_st(String coid_st) {
-		this.coid_st = coid_st;
-	}
-	public String getOt() {
-		return ot;
-	}
-	public void setOt(String ot) {
-		this.ot = ot;
-	}
-	public String getDemoname() {
-		return demoname;
-	}
-	public void setDemoname(String demoname) {
-		this.demoname = demoname;
-	}
-	public String getConame() {
-		return coname;
-	}
-	public void setConame(String coname) {
-		this.coname = coname;
-	}
 	public Long getEleid() {
 		return eleid;
 	}
 	public void setEleid(Long eleid) {
 		this.eleid = eleid;
+	}
+	public String getEleid_st() {
+		return eleid_st;
+	}
+	public void setEleid_st(String eleid_st) {
+		this.eleid_st = eleid_st;
 	}
 	public String getElename() {
 		return elename;
@@ -102,11 +72,35 @@ public class SalaryDemoEle implements Serializable {
 	public void setDemoid(Long demoid) {
 		this.demoid = demoid;
 	}
+	public String getDemoid_st() {
+		return demoid_st;
+	}
+	public void setDemoid_st(String demoid_st) {
+		this.demoid_st = demoid_st;
+	}
+	public String getDemoname() {
+		return demoname;
+	}
+	public void setDemoname(String demoname) {
+		this.demoname = demoname;
+	}
+	public String getConame() {
+		return coname;
+	}
+	public void setConame(String coname) {
+		this.coname = coname;
+	}
 	public Long getCoid() {
 		return coid;
 	}
 	public void setCoid(Long coid) {
 		this.coid = coid;
+	}
+	public String getCoid_st() {
+		return coid_st;
+	}
+	public void setCoid_st(String coid_st) {
+		this.coid_st = coid_st;
 	}
 	public Date getCreatetime() {
 		return createtime;
@@ -132,7 +126,14 @@ public class SalaryDemoEle implements Serializable {
 	public void setUpdateby(String updateby) {
 		this.updateby = updateby;
 	}
+	public String getOt() {
+		return ot;
+	}
+	public void setOt(String ot) {
+		this.ot = ot;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 }

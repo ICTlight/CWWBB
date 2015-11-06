@@ -32,7 +32,13 @@ public class SalaryDemoEleDaoImpl implements ISalaryDemoEleDao{
 
 	@Override
 	public SalaryDemoEle findSaldemoEleByEleid(Long eleid) throws DaoException {
-		return sqlSessionTemplate.selectOne("com.app.domain.salary.SalaryDemoEle.findSaldemoEleByEleid");
+		return sqlSessionTemplate.selectOne("com.app.domain.salary.SalaryDemoEle.findSaldemoEleByEleid",eleid);
+	}
+
+	@Override
+	public int updateSalDemoelebyid(SalaryDemoEle salarydemoele)
+			throws DaoException {
+		return sqlSessionTemplate.insert("com.app.domain.salary.SalaryDemoEle.updateSalDemoelebyid", salarydemoele);
 	}
 
 }

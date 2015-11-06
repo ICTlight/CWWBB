@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.app.domain.salary.SalaryDemoEle">
-<resultMap id="salaryDemoEleMapper"  type="com.app.domain.salary.SalaryDemoEle">
+<mapper namespace="com.app.domain.salary.SalaryDemoStEle">
+<resultMap id="salaryDemoStEleMapper"  type="com.app.domain.salary.SalaryDemoStEle">
     	<id  property="eleid" column="eleid"  javaType="long" jdbcType="NUMERIC"/>
         <result property="elename" column="elename"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="fixedcode" column="fixedcode"  javaType="java.lang.String" jdbcType="VARCHAR"/>
@@ -19,8 +19,8 @@
         <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>        
     </resultMap>
     
-    <insert id="saveSaldemoEle" parameterType="com.app.domain.salary.SalaryDemoEle">    
-      INSERT INTO sa_demo_base (eleid,elename,fixedcode,isshow,cptype,precisions,coid,demoname,demoid,coname,createby,createtime)
+    <insert id="saveSaldemostele" parameterType="com.app.domain.salary.SalaryDemoStEle">    
+      INSERT INTO sa_demo_stand (eleid,elename,fixedcode,isshow,cptype,precisions,coid,demoname,demoid,coname,createby,createtime)
       VALUES(
         #{eleid,jdbcType=NUMERIC},
         #{elename,jdbcType=VARCHAR},
@@ -36,8 +36,8 @@
         #{createtime,jdbcType=DATE}   
      )
   </insert>
-  <update id="updateSalDemoelebyid" parameterType="com.app.domain.salary.SalaryDemoEle">      
-      UPDATE sa_demo_base 
+  <update id="updateSaldemostelebyid" parameterType="com.app.domain.salary.SalaryDemoStEle">      
+      UPDATE sa_demo_stand 
       <set>
       <if test="elename!=null and elename!=''"> 
       		elename=#{elename,jdbcType=VARCHAR},
@@ -65,45 +65,32 @@
   </update>
   
 	<!-- 根据id查找用户信息 -->
-  <select id="findSaldemoEleByEleid" parameterType="Long" resultType="com.app.domain.salary.SalaryDemoEle">
+  <select id="findSaldemosteleByEleid" parameterType="Long" resultType="com.app.domain.salary.SalaryDemoStEle">
   	<![CDATA[
-  	 SELECT * FROM sa_demo_base WHERE eleid=#{eleid}
+  	 SELECT * FROM sa_demo_stand WHERE eleid=#{eleid}
   	]]>
   </select>
   
-  <select id="getsaldemoeleid" parameterType="Long" resultType="Long">
+  <select id="getsaldemosteleid" parameterType="Long" resultType="Long">
   	<![CDATA[
-  	 SELECT _nextval('sa_demo_base')
+  	 SELECT _nextval('sa_demo_stand')
   	]]>
   </select>
   
   <!-- 根据模板id查找模板信息 -->
-  <select id="findSaldemoeleBydemoid" parameterType="Long" resultType="com.app.domain.salary.SalaryDemoEle">
+  <select id="findSaldemosteleBydemoid" parameterType="Long" resultType="com.app.domain.salary.SalaryDemoStEle">
   	<![CDATA[
-  	 SELECT * FROM sa_demo_base WHERE demoid=#{demoid}
+  	 SELECT * FROM sa_demo_stand WHERE demoid=#{demoid}
   	]]>
   </select>
   <!-- 根据企业id查找模板信息 -->
-  <select id="findSaldemoeleBycoid" parameterType="Long" resultType="com.app.domain.salary.SalaryDemoEle">
+  <select id="findSaldemosteleBycoid" parameterType="Long" resultType="com.app.domain.salary.SalaryDemoStEle">
   	<![CDATA[
-  	 SELECT * FROM sa_demo_base WHERE coid=#{coid}
+  	 SELECT * FROM sa_demo_stand WHERE coid=#{coid}
   	]]>
   </select>
   
-  
-  
-  <select id="findUserByuserame" parameterType="String" resultType="com.app.domain.salary.SalaryDemoEle">
-  	<![CDATA[
-  	 SELECT * FROM SS_USER WHERE username=#{username}
-  	]]>
-  </select>
-  
-  
-  
-  <select id = "findUsernameCount" parameterType = "String" resultType = "int" >
-       SELECT COUNT(*) FROM SS_USER WHERE username=#{username}
-  </select>
-  <select id = "findEmailCount" parameterType = "String" resultType = "int">
-       SELECT COUNT(*) FROM SS_USER WHERE email=#{email}
-  </select>
+  <delete id="deleteSaldemosteleBydemoid" parameterType="Long">
+  	DELETE FROM sa_demo_stand WHERE demoid=#{demoid}
+  </delete>
 </mapper>

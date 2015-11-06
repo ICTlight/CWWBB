@@ -37,7 +37,7 @@ public class SalaryDemoDaoImpl implements ISalaryDemoDao {
 	@Override
 	public SalaryDemo findSaldemoBySaldemoid(Long saldemoid)
 			throws DaoException {
-		return sqlSessionTemplate.selectOne("com.app.domain.salary.SalaryDemo.findSaldemoBySaldemoid");
+		return sqlSessionTemplate.selectOne("com.app.domain.salary.SalaryDemo.findSaldemoBySaldemoid",saldemoid);
 	}
 
 }

@@ -31,14 +31,12 @@ public class SalaryDemoController {
 	
 	/*
 	 * 
-	 *  获取物料列表
+	 *  获取工资模板列表
 	 * */
 	@RequestMapping("/getSalDemoLists")
 	public @ResponseBody List getSalDemoLists(HttpServletRequest request,Model model) throws Exception {
 		HttpSession session = request.getSession();
-		//Long coid = (Long)session.getAttribute(Constants.USERID);
-		Long coid = Long.valueOf("1000000000");
-				
+		Long coid = (Long)session.getAttribute(Constants.USERID);		
 		List<SalaryDemo> list = new ArrayList<SalaryDemo>();
 		try {	            
             list = saldemoService.findSaldemoByCoid(coid);
@@ -86,50 +84,5 @@ public class SalaryDemoController {
 			modelMap.put("message", "failure");
 		}	
 		return new ModelAndView(new MappingJacksonJsonView(),modelMap);
-	}
-	/**
-	 * 增加工资项页面
-	 */
-	@RequestMapping("/addsaleleInfo")
-	public ModelAndView addsaleleInfo() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		SalaryDemo salaryDemo = new SalaryDemo();
-		map.put("salaryDemo", salaryDemo);
-		
-		return new ModelAndView("salary/addsaleleDemo",map);
-	}
-	/**
-	 * 增加员工页面
-	 */
-	@RequestMapping("/addsalpelInfo")
-	public ModelAndView addsalpelInfo() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		SalaryDemo salaryDemo = new SalaryDemo();
-		map.put("salaryDemo", salaryDemo);
-		
-		return new ModelAndView("salary/addsalpelDemo",map);
-	}
-	
-	/**
-	 * 修改工资项页面
-	 */
-	@RequestMapping("/updatesaleleInfo")
-	public ModelAndView updatesaleleInfo() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		SalaryDemo salaryDemo = new SalaryDemo();
-		map.put("salaryDemo", salaryDemo);
-		
-		return new ModelAndView("salary/updatesaleleDemo",map);
-	}
-	/**
-	 * 增加员工页面
-	 */
-	@RequestMapping("/updatesalpelInfo")
-	public ModelAndView updatesalpelInfo() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		SalaryDemo salaryDemo = new SalaryDemo();
-		map.put("salaryDemo", salaryDemo);
-		
-		return new ModelAndView("salary/updatesalpelDemo",map);
 	}
 }

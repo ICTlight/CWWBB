@@ -10,26 +10,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.salary.ISalaryDemoDao;
-import com.app.dao.salary.ISalaryDemoEleDao;
-import com.app.domain.salary.SalaryDemoEle;
-import com.app.service.salary.ISalaryDemoEleService;
+import com.app.dao.salary.ISalaryDemoStEleDao;
+import com.app.domain.salary.SalaryDemoStEle;
+import com.app.service.salary.ISalaryDemoStEleService;
 import com.app.utils.exception.DaoException;
 import com.app.utils.exception.ServiceException;
 
 @Component
 @Service
 @Transactional
-public class SalaryDemoEleServiceImpl implements ISalaryDemoEleService {
+public class SalaryDemoStEleServiceImpl implements ISalaryDemoStEleService{
 
 	@Autowired
-	private ISalaryDemoEleDao saldemoeledao;
+	private ISalaryDemoStEleDao steledao;
 	//记录日志
-	private Logger logger = LoggerFactory.getLogger(SalaryDemoEleServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger(SalaryDemoStEleServiceImpl.class);
 	@Override
-	public boolean saveSaldemoEle(SalaryDemoEle salarydemoele)
+	public boolean saveSaldemostele(SalaryDemoStEle salarydemostele)
 			throws ServiceException {
 		try {
-			if(saldemoeledao.saveSaldemoEle(salarydemoele) > 0){
+			if(steledao.saveSaldemostele(salarydemostele) > 0){
 				return true;
 			}
 		} catch (DaoException e) {
@@ -40,15 +40,16 @@ public class SalaryDemoEleServiceImpl implements ISalaryDemoEleService {
 	}
 
 	@Override
-	public Long getsaldemoeleid() throws ServiceException {
-		return saldemoeledao.getsaldemoeleid();
+	public Long getsaldemosteleid() throws ServiceException {
+		
+		return steledao.getsaldemosteleid();
 	}
 
 	@Override
-	public List<SalaryDemoEle> findSaldemoeleBydemoid(Long demoid)
+	public List<SalaryDemoStEle> findSaldemosteleBydemoid(Long demoid)
 			throws ServiceException {
 		try {
-			return saldemoeledao.findSaldemoeleBydemoid(demoid);
+			return steledao.findSaldemosteleBydemoid(demoid);
 		} catch (DaoException e) {
 			logger.error("Error occurred when findAllUser methods of SalaryDemoEleServiceImpl.", e);
 			throw new ServiceException("查找数据失败", e);
@@ -56,16 +57,17 @@ public class SalaryDemoEleServiceImpl implements ISalaryDemoEleService {
 	}
 
 	@Override
-	public SalaryDemoEle findSaldemoEleByEleid(Long eleid)
+	public SalaryDemoStEle findSaldemosteleByEleid(Long eleid)
 			throws ServiceException {
-		return saldemoeledao.findSaldemoEleByEleid(eleid);
+		
+		return steledao.findSaldemosteleByEleid(eleid);
 	}
 
 	@Override
-	public boolean updateSalDemoelebyid(SalaryDemoEle salarydemoele)
+	public boolean updateSaldemostelebyid(SalaryDemoStEle salarydemostele)
 			throws ServiceException {
 		try {
-			if(saldemoeledao.updateSalDemoelebyid(salarydemoele) > 0){
+			if(steledao.updateSaldemostelebyid(salarydemostele) > 0){
 				return true;
 			}
 		} catch (DaoException e) {
@@ -73,6 +75,11 @@ public class SalaryDemoEleServiceImpl implements ISalaryDemoEleService {
 			throw new ServiceException("修改数据失败", e);
 		}
 		return false;
+	}
+
+	@Override
+	public void deleteSaldemosteleBydemoid(Long demoid) throws ServiceException {
+		steledao.deleteSaldemosteleBydemoid(demoid);		
 	}
 
 }

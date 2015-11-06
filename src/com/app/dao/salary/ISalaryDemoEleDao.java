@@ -40,4 +40,12 @@ public interface ISalaryDemoEleDao {
    	 * @ reviewed_by
    	 */
     public SalaryDemoEle findSaldemoEleByEleid(Long eleid) throws DaoException;
+    
+    /** 
+	 * @ int updateSalDemoelebyid(SalaryDemoEle salarydemoele)
+	 * @ author LiuTuo
+	 * @ date 2015-11-1 09:22:51
+	 * @ description 修改工资模板项
+	 */
+    public int updateSalDemoelebyid(SalaryDemoEle salarydemoele) throws DaoException;
 }

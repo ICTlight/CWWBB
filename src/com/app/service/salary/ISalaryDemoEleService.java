@@ -38,4 +38,12 @@ public interface ISalaryDemoEleService {
    	 * @ reviewed_by
    	 */
     public SalaryDemoEle findSaldemoEleByEleid(Long eleid) throws ServiceException;
+    
+    /** 
+	 * @ boolean updateSalDemoelebyid(SalaryDemoEle salarydemoele) 
+	 * @ author LiuTuo
+	 * @ date 2015-11-1 09:24:25
+	 * @ description 修改工资模板项
+	 */
+    public boolean updateSalDemoelebyid(SalaryDemoEle salarydemoele) throws ServiceException;
 }

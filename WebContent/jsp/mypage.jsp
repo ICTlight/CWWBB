@@ -79,7 +79,7 @@
  			       for(var i = 0; i<result.length; i++) {
  			    	   var name = result[i].saldemoname;
  					    var id = result[i].saldemoid; 					    
- 					    brick = '<div id="'+id+'" class="brick small demos"><a class="delete" href="#"">&times;</a>'+name+'</div>'; 
+ 					    brick = '<div id="'+id+'" class="brick small demos"><a class="delete" href="#"">&times;</a>'+name+'</div>';
  				      event.preventDefault();
  				      event.stopPropagation();
  				      $('.gridly').append(brick);
@@ -90,6 +90,7 @@
 	      }); 
 	});
 	</script>
+	
 	<!-- 工资模板相关 -->
 	<script type="text/javascript">
 		  $(function() {
@@ -104,6 +105,7 @@
 		      $this.toggleClass('large');
 		      if ($this.hasClass('small')) {
 		        size = 140;
+		        document.getElementById('currentdemoid').value = "";
 		        torefresh();
 		      }
 		      if ($this.hasClass('large')) {
@@ -113,11 +115,15 @@
 		    			 document.getElementById(currentid).remove();
 		    		 }else{i++;}
 		    	  }
-		    	  
+		    	  document.getElementById('currentdemoid').value = $thisid;
 		    	  $('.adddemosbt').attr("style","display:none");
 		    	  $("#productdemo").addClass("col-md-4");
 		    	  $('#productdetail').attr("style","display:");
+		    	  $('#productpel').attr("style","display:");
 		          size = 300;
+		          toadddemoeles();
+		          toadddemosteles();
+		          toadddemopels();
 		      }
 		      $this.data('width', size);
 		      $this.data('height', size);
@@ -143,9 +149,7 @@
 	<script type="text/javascript">
 		  $(function() {
 		    var brick;
-		    $(".elegridly .brick").dblclick( function () { 
-		    	openupdateele();		    	
-		    });		    
+
 		    $(document).on("click", ".elegridly .delete", function(event) {
 		      var $this;
 		      event.preventDefault();
@@ -159,6 +163,26 @@
 		    	openaddele();
 		    });
 		    return $('.elegridly').gridly(); 
+		  });
+	</script>
+	
+	<!-- 社保公积金项相关 -->
+	<script type="text/javascript">
+		  $(function() {
+		    var brick;
+		    $(document).on("click", ".standgridly .delete", function(event) {
+		      var $this;
+		      event.preventDefault();
+		      event.stopPropagation();
+		      $this = $(this);
+		      $this.closest('.brick').remove();		      
+		      torefresh();
+		      return $('.standgridly').gridly('layout');
+		    });
+		    $(document).on("click", ".addstandele", function(event) {
+		    	openaddstele();
+		    });
+		    return $('.standgridly').gridly(); 
 		  });
 	</script>
 	
@@ -189,25 +213,167 @@
 			var torefresh = document.getElementById("togongzipage");
 	      	torefresh.click();
 		}
-		function openaddele(){
-			$("#href_addele").html("");
-	    	openAddModal("addsaleleModel","<%=request.getContextPath() %>/addsaleleInfo","href_addele");	
+		function torefreshdemo(){
+			var currentdemo = document.getElementById('currentdemoid'); 
+			torefresh();
+			currentdemo.click();
 		}
 		function openadddemo(){
 			$("#href_addsal").html("");
 	    	openAddModal("addsaldemoModel","<%=request.getContextPath() %>/addsaldemoInfo","href_addsal");
 		}
+		
+		//动态添加模板项 
+		function toadddemoeles(){
+			//动态添加现有工资模板
+			var demoid_st = document.getElementById('currentdemoid').value; 
+			
+			$.ajax({  
+		     	type : "POST",
+		 		url : "<%=request.getContextPath() %>/getSalDemoeleLists?demoid_st=" + demoid_st,
+		 		async : false,
+		 		dataType : "json",
+		 		success : function(result){
+		 			if(result != null && result.length > 0) {
+	 			       for(var i = 0; i<result.length; i++) {
+	 			    	   var id = result[i].eleid;
+	 					    var name = result[i].elename; 	 					    
+	 					    brick = '<div id="'+id+'" class="brick small eles" ondblclick="openupdateele('+id+')'+'"><a class="delete" href="">&times;</a>'+name+'</div>';
+	 					    event.preventDefault();
+	 				      event.stopPropagation();
+	 				      $('.elegridly').append(brick);
+			       		}
+	 			      return $('.elegridly').gridly();
+		 			}	 			
+		 		}
+		      }); 
+		}
+
+		//动态添加社保公积金项 
+		function toadddemosteles(){
+			//动态添加现有工资模板
+			var demoid_st = document.getElementById('currentdemoid').value; 
+			
+			$.ajax({  
+		     	type : "POST",
+		 		url : "<%=request.getContextPath() %>/getSalDemosteleLists?demoid_st=" + demoid_st,
+		 		async : false,
+		 		dataType : "json",
+		 		success : function(result){
+		 			if(result != null && result.length > 0) {
+	 			       for(var i = 0; i<result.length; i++) {
+	 			    	   var id = result[i].eleid;
+	 					    var name = result[i].elename; 	 					    
+	 					    brick = '<div id="'+id+'" class="brick small eles"><a class="delete" href="">&times;</a>'+name+'</div>';
+	 					    event.preventDefault();
+	 				      event.stopPropagation();
+	 				      $('.standgridly').append(brick);
+			       		}
+	 			      return $('.standgridly').gridly();
+		 			}	 			
+		 		}
+		      }); 
+		}
+		
+		//动态添加员工
+		function toadddemopels(){
+			//动态添加现有工资模板
+			var demoid_st = document.getElementById('currentdemoid').value; 
+			
+			$.ajax({  
+		     	type : "POST",
+		 		url : "<%=request.getContextPath() %>/getSalPelLists?demoid_st=" + demoid_st,
+		 		async : false,
+		 		dataType : "json",
+		 		success : function(result){
+		 			if(result != null && result.length > 0) {
+	 			       for(var i = 0; i<result.length; i++) {
+	 			    	   var id = result[i].peid;
+	 					    var name = result[i].pename; 	 					    
+	 					    brick = '<div id="'+id+'" class="brick small pels" ondblclick="openupdatepel('+id+')'+'"><a class="delete" href="">&times;</a>'+name+'</div>';
+	 					    event.preventDefault();
+	 				      event.stopPropagation();
+	 				      $('.pelgridly').append(brick);
+			       		}
+	 			      return $('.pelgridly').gridly();
+		 			}	 			
+		 		}
+		      }); 
+		}
+		function openaddele(){
+			var demoid_st = document.getElementById('currentdemoid').value; 
+			$("#href_addele").html("");
+			$.ajax({
+				type : "POST",
+				url : "<%=request.getContextPath() %>/addsaleleInfo?demoid_st=" + demoid_st,	
+				async : false,
+				dataType : "html",
+				success : function(result){
+					$("#href_addele").html(result);
+					$("#addsaleleModel").modal("show");
+				}
+			});  				
+		}
+		function openaddstele(){
+			var demoid_st = document.getElementById('currentdemoid').value; 
+			$("#href_addele").html("");
+			$.ajax({
+				type : "POST",
+				url : "<%=request.getContextPath() %>/addsalsteleInfo?demoid_st=" + demoid_st,	
+				async : false,
+				dataType : "html",
+				success : function(result){
+					$("#href_addele").html(result);
+					$("#addsalsteleModel").modal("show");
+				}
+			});  				
+		}
+		
 		function opeaddpel(){
+			var demoid_st = document.getElementById('currentdemoid').value; 
 			$("#href_addpel").html("");
-	    	openAddModal("addsalpelModel","<%=request.getContextPath() %>/addsalpelInfo","href_addpel");
+			$.ajax({
+				type : "POST",
+				url : "<%=request.getContextPath() %>/addsalpelInfo?demoid_st=" + demoid_st,	
+				async : false,
+				dataType : "html",
+				success : function(result){
+					$("#href_addpel").html(result);
+					$("#addsalpelModel").modal("show");
+				}
+			});  	
 		}
-		function openupdatepel(){
-	  		$("#href_addpel").html("");
-	    	openAddModal("updatesalpelModel","<%=request.getContextPath() %>/updatesalpelInfo","href_addpel");	
+		function openupdatepel(id){
+			var peid = id; 
+			$("#href_addpel").html("");
+			$.ajax({
+				type : "POST",
+				url : "<%=request.getContextPath() %>/updatesalpelInfo?peid=" + peid,	
+				async : false,
+				dataType : "html",
+				success : function(result){
+					$("#href_addpel").html(result);
+					$("#updatesalpelModel").modal("show");
+				}
+			});  
+			
+	  		<%-- $("#href_addpel").html("");
+	    	openAddModal("updatesalpelModel","<%=request.getContextPath() %>/updatesalpelInfo","href_addpel");	 --%>
 		}
-		function openupdateele(){
-	  		$("#href_addele").html("");
-	    	openAddModal("updatesaleleModel","<%=request.getContextPath() %>/updatesaleleInfo","href_addele");	
+		function openupdateele(id){			
+			var eleid = id; 
+			alert("eleid....."+eleid);
+			$("#href_addele").html("");
+			$.ajax({
+				type : "POST",
+				url : "<%=request.getContextPath() %>/updatesaleleInfo?eleid=" + eleid,	
+				async : false,
+				dataType : "html",
+				success : function(result){
+					$("#href_addele").html(result);
+					$("#updatesaleleModel").modal("show");
+				}
+			});   	  			
 		}
 	</script>
 </head>
@@ -219,7 +385,7 @@
 	<h1 id="username" style="display:none" ><%=session.getAttribute("username")%></h1>
 	<h1 id="status" style="display:none" ><%=session.getAttribute("status")%></h1>
 	<h1 id="email" style="display:none" ><%=session.getAttribute("email")%></h1> 
-	<a id="togongzipage" href="/CWWBB/jsp/mypage.jsp" style="display:none"></a>
+	
 	<nav class="navbar navbar-vertical-left">
 	    <ul class="nav navbar-nav">
 	      <li>
@@ -249,6 +415,9 @@
 	    </ul>
 	</nav>
 	<div id="gongzi" class="htmleaf-container">
+		<a id="togongzipage" href="/CWWBB/jsp/mypage.jsp" style="display:none"></a>
+		<!-- <h1 id="currentdemoid" style="display:none" ></h1> -->
+		<input type="text" style="display:none" name="currentdemoid"  id="currentdemoid" />
 		<div id="myheads" class="row-fluid">
 			<div class="col-lg-1"></div>
 			<div class="col-lg-11">
@@ -277,43 +446,58 @@
 			      <div id="productdetail" class="col-md-7" style="display:none">
 				      <div id="productele" class="exampleele row" >
 				    	<div class='elegridly'>
-				          <div id="ele1" class='brick small eles'>
-				            <a class='delete' href='#'>&times;</a>基本工资</div>
+				           <!-- <div id="ele1" class='brick small eles' ondblclick="openupdateele('10000000')"><a class='delete' href='#'>&times;</a>基本工资</div>
 				          <div id="ele2" class='brick small eles'>
 				            <a class='delete' href='#'>&times;</a>绩效</div>
 				          <div id="ele3" class='brick small eles'>
 				            <a class='delete' href='#'>&times;</a>差补</div>
 				          <div id="ele4" class='brick small eles'><a class='delete' href='#'>&times;</a>房补</div>
-				          <div id="ele5" class='brick small eles'><a class='delete' href='#'>&times;</a>交通补助</div>
+				          <div id="ele5" class='brick small eles'><a class='delete' href='#'>&times;</a>交通补助</div> --> 
 				        </div>
 				        <p class='actions addelebt'>
 				          <!-- <a class='button addele' data-target="#addsaleleModel" data-toggle="modal">添加模板项</a> -->
-				          <button class="addele button" data-target="#addsaleleModel" data-toggle="modal" >添加模板项</button>	
+				          <button class="addele button" data-target="#addsaleleModel" data-toggle="modal" >添加基本项</button>	
 				        </p>
 				        <button id="updateelebt" style="display:none" class="btn" data-target="#updatesaleleModel" data-toggle="modal" onclick="openaddele()" ></button>
 				        <div id="href_addele"></div>
 				    </div>
-				     <div id="productpel" class="examplepel row">
+				    <div id="standsalele" class="exampleele row" >
+				    	<div class='standgridly'>
+				          <!-- <div id="ele1" class='brick small eles' ondblclick="openupdateele('10000000')"><a class='delete' href='#'>&times;</a>基本工资</div>
+				          <div id="ele2" class='brick small eles'>
+				            <a class='delete' href='#'>&times;</a>绩效</div>
+				          <div id="ele3" class='brick small eles'>
+				            <a class='delete' href='#'>&times;</a>差补</div>
+				          <div id="ele4" class='brick small eles'><a class='delete' href='#'>&times;</a>房补</div>
+				          <div id="ele5" class='brick small eles'><a class='delete' href='#'>&times;</a>交通补助</div> --> 
+				        </div>
+				        <p class='actions addelebt'>
+				          <button class="addstandele button" data-target="#addsalsteleModel" data-toggle="modal" >添加社保公积金项</button>	
+				        </p>
+				        <!-- <button id="updatestelebt" style="display:none" class="btn" data-target="#updatesaleleModel" data-toggle="modal" onclick="openaddele()" ></button> -->
+				        <div id="href_addele"></div>
+				    </div>
+				      
+			    </div>
+			    </div>
+			    <div id="productpel" class="examplepel row" style="display:none">
 				    	<div class='pelgridly'>
-				          <div id="pel1" class='brick small pels'>
+				          <!-- <div id="pel1" class='brick small pels'>
 				            <a class='delete' href='#'>&times;</a>张三</div>
 				          <div id="pel2" class='brick small pels'>
 				            <a class='delete' href='#'>&times;</a>李四</div>
 				          <div id="pel3" class='brick small pels'>
 				            <a class='delete' href='#'>&times;</a>王五</div>
 				          <div id="pel4" class='brick small pels'><a class='delete' href='#'>&times;</a>赵六</div>
-				          <div id="pel5" class='brick small pels'><a class='delete' href='#'>&times;</a>大七子</div>
+				          <div id="pel5" class='brick small pels'><a class='delete' href='#'>&times;</a>大七子</div> -->
 				        </div>
 				        <p class='actions addpelbt'>
-				          <!-- <a class='addpel button' data-target="#addsalpelModel" data-toggle="modal">添加员工</a> -->
-				          <button class="addpel button" data-target="#addsalpelModel" data-toggle="modal" onclick="openaddpel()">添加员工</button>
+				          <button class="addpel button" data-target="#addsalpelModel" data-toggle="modal">添加员工</button>
 				        </p>
 				        <button id="addpelbt" style="display:none" class="btn btn-primary btn-large" data-target="#updatesalpelModel" data-toggle="modal" onclick="openaddpel()" ></button>
 				        <div id="href_addpel"></div>
 				         
-				    </div> 
-			    </div>
-			    </div>
+				    </div>
 		    </div>
 		    <div class="col-lg-2"></div>
 		</div>                               

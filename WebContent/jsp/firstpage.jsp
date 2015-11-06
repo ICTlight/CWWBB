@@ -96,7 +96,7 @@
                     <div class="video"><a class="embedVideoLink launchVideo videoLB" href="#" >财务外包系统</a></div>
                     <div class="overlay">
                         <span class="close"></span>
-                        <iframe src="http://v.youku.com/v_show/id_XMTM1OTYwOTk3Mg==_ev_1.html" frameborder="0" allowfullscreen=""></iframe>
+                        <iframe src="" frameborder="0" allowfullscreen=""></iframe>
                     </div>
                     <div class="linkImage product-intro__image--play-button videoPlayButton"><a href=""><img src="<%=request.getContextPath() %>/assets/img/start.png" alt="" height="115" /></a></div>
                     <div class="">

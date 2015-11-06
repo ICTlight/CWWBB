@@ -14,7 +14,7 @@
 		 bottom: 0px; 
 		 right: 0px; 
 		  z-index: 1050; 
-		    width: 800px
+		    width: 900px
 		}
 		
      </style>
@@ -25,6 +25,63 @@
 	 	});
      });
      </script>
+     <script type="text/javascript">     
+     
+       $(function(){
+    	   var peid = document.getElementById('peid').value;    	   
+			  $.ajax({  
+		     	type : "POST",
+		 		url : "<%=request.getContextPath() %>/getSpelLists?peid_st=" + peid,
+		 		async : false,
+		 		dataType : "json",
+		 		success : function(result){
+		 			if(result != null && result.length > 0) {
+		 				var elesum =result[1];
+						var eveles = (parseInt(elesum)+2)/3;
+						var shengyu = (parseInt(elesum)+2)%3;						
+	 			       for(var i = 0; i<result[0].length; i++) {
+	 			    	   var infos = result[0];
+	 			    	   var id = infos[i].salitemid;
+	 					   var name = infos[i].elename;
+	 					   var bvalue = infos[i].basevalue;
+	 					   brick = '<div class="form-group"><label class="col-md-5 control-label">'+name+':</label><div class="col-md-7"><input type="text" class="form-control required" name="'+id+'" id="'+id+'" value="'+bvalue+'"/></div></div>';
+ 						   if(parseInt(shengyu)>0){
+ 							  if(parseInt(eveles)>=i+1){
+ 	 							  $('#fcolumn').append(brick);
+ 	 						   }else if(parseInt(eveles)<i+1 && 2*(parseInt(eveles))>=i+1){
+ 	 							  $('#scolumn').append(brick);
+ 	 						   }else{
+ 	 							  $('#tcolumn').append(brick);
+ 	 						   }
+ 						   }else{
+ 							  if(parseInt(eveles)>=i+2){
+ 	 							  $('#fcolumn').append(brick);
+ 	 						   }else if(parseInt(eveles)<i+2 && 2*(parseInt(eveles))>=i+3){
+ 	 							  $('#scolumn').append(brick);
+ 	 						   }else{
+ 	 							  $('#tcolumn').append(brick);
+ 	 						   }
+ 						   }
+	 					   	 					   	 					  	 				     
+			       		}
+	 			      /* for(var i = 0; i<result[1].length; i++) {
+	 			    	   var infos = result[1];
+	 			    	   var id = infos[i].eleid;
+	 					    var name = infos[i].elename; 	 					    
+	 					   brick = '<div class="form-group"><label class="col-md-5 control-label">'+name+':</label><div class="col-md-7"><input type="text" class="form-control required" name="'+id+'" id="'+id+'" /></div></div>';
+ 						   if(parseInt(eveles)>=i){
+ 							  $('#tcolumn').append(brick);
+ 						   }else if(parseInt(eveles)<i && 2*(parseInt(eveles))>=i){
+ 							  $('#scolumn').append(brick);
+ 						   }else{
+ 							  $('#fcolumn').append(brick);
+ 						   }	 					   
+			       		} */
+		 			}	 			
+		 		}
+		      });  
+        }); 
+       </script>
   </head>
   <body>
     <div class="modal fade" data-backdrop='static' id="updatesalpelModel">
@@ -39,127 +96,23 @@
               </h4>
             </div>
              <form class="form-horizontal"  id="validate-2">
-             	<input type="hidden" id="labour_id" name = "labour_id"/>
-				<input type="hidden" id="acquirer_id" name = "acquirer_id"/> 
+             	<!-- <input type="hidden" id="peid" name = "peid_st" value="${peid}"/> -->
 	            <div class="modal-body">	                    	
-	                <br>                           
-                                <div class="row">
-									<div class="col-md-4" >
-										<div>
-										     <div class="form-group">
-						                      <label class="col-md-5 control-label">员工id:</label>
-						                      <div class="col-md-7">
-						                        <input type="text" class="form-control required" name="userid"  id="userid" />
-						                      </div>
-						                    </div>
-						                    <div class="form-group">
-						                      <label class="col-md-5 control-label">基本工资:</label>
-						                      <div class="col-md-7">
-						                        <input type="text" class="form-control required" name="usid"  id="usid" />
-						                      </div>
-						                    </div> 
-						                    <div class="form-group">
-						                      <label class="col-md-5 control-label">岗位工资:</label>
-						                      <div class="col-md-7">
-						                        <input type="text" class="form-control required" name=""  id="" />
-						                      </div>
-						                    </div>
-										</div>
-									</div>
-				
-					<div class="col-md-4" >
-						<div >
-
+                     <br>
+                     <div  class="row">
+				         <div id="fcolumn" class="col-md-4" >
+					     	<div class="form-group"><label class="col-md-5 control-label">员工ID:</label><div class="col-md-7"><input type="text" class="form-control required" name="peid"  id="peid" value="${peid}" readonly/></div></div>
+					     </div>				
+						<div id="scolumn" class="col-md-4" >
 		                     <div class="form-group">
-		                      <label class="col-md-5 control-label">用户名:</label>
-		                       <div class="col-md-7">
-		                       <input type="text" class="form-control required" name="username"  id="username"/>
-		           
-		                      </div> 
-		                    </div>
-		                    <div class="form-group">
-		                      <label class="col-md-5 control-label">差补:</label>
-		                      <div class="col-md-7">
-		                        <input type="text" class="form-control required" name=""  id="" />
-		                      </div>
-		                    </div>
-		                    <div class="form-group">
-		                      <label class="col-md-5 control-label">通讯补助:</label>
-		                      <div class="col-md-7">
-		                        <input type="text" class="form-control required" name=""  id="" />
-		                      </div>
-		                    </div>
-		                    		                        
-						</div>
-					</div>
-					
-					<div class="col-md-4" >
-						<div >
-						<div class="form-group">
-		                      <label class="col-md-5 control-label">住房补助:</label>
-		                      <div class="col-md-7">
-		                        <input type="text" class="form-control required" name=""  id="" />
-		                      </div>
-		                    </div>
-		                    <div class="form-group">
-		                      <label class="col-md-5 control-label">餐补:</label>
-		                      <div class="col-md-7">
-		                        <input type="text" class="form-control required" name=""  id="" />
-		                      </div>
-		                    </div>
-		                    <div class="form-group">
-		                      <label class="col-md-5 control-label">交通补助:</label>
-		                      <div class="col-md-7">
-		                        <input type="text" class="form-control required" name=""  id="" />
-		                      </div>
-		                    </div>
-							<%-- <div class="form-group">
-		                      <label class="col-md-5 control-label">工程量:</label>
-		                      <div class="col-md-7">
-		                        <input type="text" class="form-control" name="project_quantity"  id="project_quantity"/>
-		                      </div>
-		                    </div>
-		                    <div class="form-group">
-		                      <label class="col-md-5 control-label">供应商注册资金:</label>
-		                      <div class="col-md-7">
-		                        <input type="text" class="form-control" name="supplier_capital"  id="supplier_capital"/>
-		                      </div>
-		                    </div>
-		                      <div class="form-group">
-		                      <label class="col-md-5 control-label">协作队伍业绩:</label>
-		                      <div class="col-md-7">
-		                        <input type="text" class="form-control" name="supplier_performance"  id="supplier_performance"/>
-		                      </div>
-		                    </div>
-		                     <div class="form-group">
-		                      <label class="col-md-5 control-label">队伍规模要求:</label>
-		                       <div class="col-md-7">
-		                       
-		                        <select class="form-control required" id="team_size" name="team_size">
-		                        <option value="">请选择</option>
-				                    <option value="<10">10以下</option>
-				                    <option value="10~50">10~50</option>
-				                    <option value="50~100">50~100</option>
-				                    <option value=">100">100以上</option>
-				                  </select>
-		                      </div> 
-		                    </div> --%>
-							 <!-- <div class="form-group">
-		                      <label class="col-md-5 control-label">证书附件url列表</label>
-		                      <div class="col-md-7">
-		                        <input type="text" class="form-control" name="fileurl_list"  id="fileurl_list" />
-		                      </div>
-		                    </div>  -->
-		                         
-						</div>
-					</div>
-				</div>	
-                      <!-- </div>
-                   </div> 
-                                    
-	                                     
-	            </div>
-	            </div> -->
+			                    <label class="col-md-5 control-label">用户名:</label>
+			                    <div class="col-md-7">
+			                    	<input type="text" class="form-control required" name="pename"  id="pename" value="${pename}"/>		           
+			                    </div> 
+			                 </div>		                    		                    		                        
+					    </div>					
+						<div id="tcolumn" class="col-md-4" ></div>
+					</div>	
 	            </div>   
 	            <div class="modal-footer">
 				    <button data-dismiss="modal" class="btn btn-default" type="button">关闭  </button>
@@ -175,25 +128,22 @@
 		$("#validate-2").validate({	
 
         submitHandler:function(form){
-        	alert("修改成功");
-        	$("#updatesalpelModel").modal("hide");
-           <%-- $.ajax({ 
+            $.ajax({ 
                  type: "POST", 
-                 url: "<%=request.getContextPath() %>/saveLabourac",
+                 url: "<%=request.getContextPath() %>/updateDemopel",
                  async : false, 
                  data: $("#validate-2").serialize(),
                  success: function(mes) { 
-                 	if(mes.message=="success") {
-			 			jQuery("#pbEmpTablelw").trigger("reloadGrid");   			
+                 	if(mes.message=="success") {   			
 			 			$("#updatesalpelModel").modal("hide");
 			 			$("#updatesalpelModel").empty();
-			 			reloadlw();
-			 			alert("需求发布成功");
+			 			torefreshdemo();
+			 			alert("员工薪资修改成功");
 					}else if(mes.message=="error"){
-						alert("需求发布失败");
+						alert("员工薪资修改失败");
 					} 
                  } 
-             }); --%>
+             }); 
         }    
 	    });
 	 });
