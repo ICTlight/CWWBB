@@ -12,6 +12,7 @@
         <result  property="demoname" column="demoname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result  property="coname" column="coname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result  property="ot" column="ot"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="statu" column="statu"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result  property="coid" column="coid"  javaType="long" jdbcType="NUMERIC"/>
         <result  property="createby" column="createby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result  property="updateby" column="updateby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
