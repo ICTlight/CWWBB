@@ -14,6 +14,7 @@
         <result  property="coname" column="coname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result  property="isstop" column="isstop"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result  property="coid" column="coid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="statu" column="statu"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result  property="createby" column="createby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result  property="updateby" column="updateby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
@@ -21,7 +22,7 @@
     </resultMap>
     
     <insert id="saveSalItem" parameterType="com.app.domain.salary.SalaryItem">    
-      INSERT INTO sa_items (salitemid,eleid,elename,peid,pename,basevalue,fixedcode,isstop,coid,demoname,demoid,coname,createby,createtime)
+      INSERT INTO sa_items (salitemid,eleid,elename,peid,pename,basevalue,fixedcode,isstop,coid,demoname,demoid,coname,statu,createby,createtime)
       VALUES(
         #{salitemid,jdbcType=NUMERIC},
         #{eleid,jdbcType=NUMERIC},
@@ -34,7 +35,8 @@
         #{coid,jdbcType=NUMERIC}, 
         #{demoname,jdbcType=NUMERIC},  
         #{demoid,jdbcType=NUMERIC},  
-        #{coname,jdbcType=VARCHAR},        
+        #{coname,jdbcType=VARCHAR},
+        #{statu,jdbcType=VARCHAR},        
         #{createby,jdbcType=VARCHAR},
         #{createtime,jdbcType=DATE}   
      )
@@ -58,7 +60,7 @@
 	<!-- 根据id查找用户信息 -->
   <select id="findSalItemByDemoid" parameterType="Long" resultType="com.app.domain.salary.SalaryItem">
   	<![CDATA[
-  	 SELECT * FROM sa_items WHERE demoid=#{demoid}
+  	 SELECT * FROM sa_items WHERE demoid=#{demoid} and statu="0"
   	]]>
   </select>
   
@@ -71,13 +73,13 @@
   <!-- 根据模板id查找模板信息 -->
   <select id="findSalItemByEleid" parameterType="Long" resultType="com.app.domain.salary.SalaryItem">
   	<![CDATA[
-  	 SELECT * FROM sa_items WHERE eleid=#{eleid}
+  	 SELECT * FROM sa_items WHERE eleid=#{eleid} and statu="0"
   	]]>
   </select>
   <!-- 根据企业id查找模板信息 -->
   <select id="findSalItemBycoid" parameterType="Long" resultType="com.app.domain.salary.SalaryItem">
   	<![CDATA[
-  	 SELECT * FROM sa_items WHERE coid=#{coid}
+  	 SELECT * FROM sa_items WHERE coid=#{coid} and statu="0"
   	]]>
   </select>
   
@@ -85,30 +87,45 @@
   
   <select id="findSalItemByPeid" parameterType="Long" resultType="com.app.domain.salary.SalaryItem">
   	<![CDATA[
-  	 SELECT * FROM sa_items WHERE peid=#{peid}
+  	 SELECT * FROM sa_items WHERE peid=#{peid} and statu="0"
   	]]>
   </select>
   
   <select id="findPellistByDemoid" parameterType="Long" resultType="com.app.domain.salary.SalaryItem">
   	<![CDATA[
-  	 SELECT DISTINCT peid,pename FROM sa_items  WHERE  demoid=#{demoid}
+  	 SELECT DISTINCT peid,pename FROM sa_items  WHERE  demoid=#{demoid} and statu="0"
   	]]>
   </select>
   <select id="findPeldelistByPeid" parameterType="Long" resultType="com.app.domain.salary.SalaryItem">
   	<![CDATA[
-  	 SELECT * FROM sa_items  WHERE  peid=#{peid}
+  	 SELECT * FROM sa_items  WHERE  peid=#{peid} and statu="0"
   	]]>
   </select>
   
   <select id="findPenameByPeid" parameterType="Long" resultType="java.lang.String">
   	<![CDATA[
-  	 SELECT DISTINCT pename FROM sa_items WHERE peid=#{peid}
+  	 SELECT DISTINCT pename FROM sa_items WHERE peid=#{peid} and statu="0"
   	]]>
   </select>
   <select id = "findSalItemCountByDemoid" parameterType = "Long" resultType = "int" >
-       SELECT COUNT(*) FROM sa_items WHERE demoid=#{demoid}
+       SELECT COUNT(*) FROM sa_items WHERE demoid=#{demoid} and statu="0"
   </select>
   <select id = "findSalItemCountByPeid" parameterType = "Long" resultType = "int">
-       SELECT COUNT(*) FROM sa_items WHERE peid=#{peid}
+       SELECT COUNT(*) FROM sa_items WHERE peid=#{peid} and statu="0"
   </select>
+  <update id="deleteDemopel" parameterType="com.app.domain.salary.SalaryItem">      
+      UPDATE sa_items 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE peid=#{peid} and statu="0"
+  </update>
 </mapper>
