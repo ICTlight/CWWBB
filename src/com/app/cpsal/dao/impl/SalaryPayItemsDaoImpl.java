@@ -1,11 +1,9 @@
 package com.app.cpsal.dao.impl;
 
 import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.app.cpsal.dao.ISalaryPayItemsDao;
 import com.app.cpsal.domain.SalaryPayItems;
 import com.app.utils.exception.DaoException;

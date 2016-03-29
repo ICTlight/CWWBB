@@ -6,18 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.app.user.dao.ICompanyDao;
 import com.app.user.domain.Company;
 import com.app.user.service.ICompanyService;
 import com.app.utils.exception.DaoException;
 import com.app.utils.exception.ServiceException;
 
-/**
- * @ file_name CompanyServiceImpl.java
- * @ author LiuTuo
- * @ description 
- */
 @Component
 @Service
 @Transactional

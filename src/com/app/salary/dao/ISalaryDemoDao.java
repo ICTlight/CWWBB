@@ -1,9 +1,7 @@
 package com.app.salary.dao;
 
 import java.util.List;
-
 import com.app.salary.domain.SalaryDemo;
-import com.app.salary.domain.SalaryDemoEle;
 import com.app.utils.exception.DaoException;
 
 public interface ISalaryDemoDao  {  

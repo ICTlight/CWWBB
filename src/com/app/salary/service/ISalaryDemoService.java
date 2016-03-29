@@ -1,7 +1,6 @@
 package com.app.salary.service;
 
 import java.util.List;
-
 import com.app.salary.domain.SalaryDemo;
 import com.app.utils.exception.DaoException;
 import com.app.utils.exception.ServiceException;

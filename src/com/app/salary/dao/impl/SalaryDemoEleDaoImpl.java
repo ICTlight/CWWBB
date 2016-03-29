@@ -1,11 +1,9 @@
 package com.app.salary.dao.impl;
 
 import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.app.salary.dao.ISalaryDemoEleDao;
 import com.app.salary.domain.SalaryDemoEle;
 import com.app.utils.exception.DaoException;

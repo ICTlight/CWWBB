@@ -15,7 +15,7 @@ public class MailUtils {
        try {
     	   
 //    	   @SuppressWarnings("resource")
-//		ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("application-common.xml","applicationContext.xml");   
+//		   ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("application-common.xml","applicationContext.xml");   
 //    	   BeanFactory factory = (BeanFactory) appContext;   
     	   @SuppressWarnings("resource")
     	   WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();

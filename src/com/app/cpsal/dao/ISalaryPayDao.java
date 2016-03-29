@@ -2,13 +2,8 @@ package com.app.cpsal.dao;
 
 import java.util.List;
 import java.util.Map;
-
-import com.app.cpsal.domain.SalaryCount;
 import com.app.cpsal.domain.SalaryPay;
-import com.app.cpsal.domain.SalaryPayItems;
-import com.app.salary.domain.SalaryItem;
 import com.app.utils.exception.DaoException;
-import com.app.utils.exception.ServiceException;
 
 public interface ISalaryPayDao {
 

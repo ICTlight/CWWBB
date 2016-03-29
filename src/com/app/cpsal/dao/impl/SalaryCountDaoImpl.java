@@ -3,7 +3,6 @@ package com.app.cpsal.dao.impl;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.app.cpsal.dao.ISalaryCountDao;
 import com.app.cpsal.domain.SalaryCount;
 import com.app.utils.exception.DaoException;

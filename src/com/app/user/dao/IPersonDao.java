@@ -1,8 +1,6 @@
 package com.app.user.dao;
 
-import com.app.user.domain.Company;
 import com.app.user.domain.Person;
-import com.app.user.domain.User;
 import com.app.utils.exception.DaoException;
 
 public interface IPersonDao {

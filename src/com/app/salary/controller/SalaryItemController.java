@@ -2,13 +2,9 @@ package com.app.salary.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
-
 import com.app.cpsal.controller.SalaryCountController;
 import com.app.cpsal.domain.SalaryCount;
 import com.app.cpsal.domain.SalaryPay;
@@ -31,7 +26,6 @@ import com.app.salary.domain.SalaryDemoEle;
 import com.app.salary.domain.SalaryDemoStEle;
 import com.app.salary.domain.SalaryItem;
 import com.app.salary.domain.SalaryLocalStand;
-import com.app.salary.domain.SalaryStandEle;
 import com.app.salary.service.ISalaryDemoEleService;
 import com.app.salary.service.ISalaryDemoService;
 import com.app.salary.service.ISalaryDemoStEleService;
@@ -41,6 +35,11 @@ import com.app.user.controller.PersonController;
 import com.app.user.domain.Person;
 import com.app.utils.Constants;
 
+/**
+ * 模板下的员工信息相关操作
+ * 
+ * liutuo
+ * */
 @Controller
 public class SalaryItemController {
 
@@ -65,8 +64,7 @@ public class SalaryItemController {
 	@Autowired
 	private ISalaryPayService payService;
 	
-	/*
-	 * 
+	/** 
 	 *  获取员工列表
 	 * */
 	@RequestMapping("/getSalPelLists")
@@ -80,8 +78,7 @@ public class SalaryItemController {
 		}
 		return list;
 	}
-	/*
-	 * 
+	/** 
 	 *  获取员工薪酬信息列表
 	 * */
 	@RequestMapping("/getSpelLists")
@@ -100,8 +97,7 @@ public class SalaryItemController {
 		list.add(2,pelstlist);
 		return list;
 	}
-	/*
-	 * 
+	/** 
 	 *  获取工资项列表
 	 * */
 	@RequestMapping("/getSeleLists")
@@ -135,8 +131,7 @@ public class SalaryItemController {
 		return list;
 	}
 	
-	/*
-	 * 
+	/** 
 	 *  获取工资项列表
 	 * */
 	@RequestMapping("/getSsteleLists")

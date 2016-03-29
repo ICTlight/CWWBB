@@ -4,10 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
-
 import com.app.salary.domain.SalaryDemo;
-import com.app.salary.domain.SalaryDemoEle;
 import com.app.salary.domain.SalaryDemoStEle;
 import com.app.salary.domain.SalaryItem;
 import com.app.salary.domain.SalaryLocalStand;
 import com.app.salary.domain.SalaryStandEle;
-import com.app.salary.service.ISalaryDemoEleService;
 import com.app.salary.service.ISalaryDemoService;
 import com.app.salary.service.ISalaryDemoStEleService;
 import com.app.salary.service.ISalaryItemService;
@@ -32,6 +27,11 @@ import com.app.salary.service.ISalaryLocalStandService;
 import com.app.salary.service.ISalaryStandEleService;
 import com.app.utils.Constants;
 
+/**
+ * 社保公积金项相关操作
+ * 
+ * liutuo
+ * */
 @Controller
 public class SalaryDemoStEleController {
 
@@ -45,8 +45,8 @@ public class SalaryDemoStEleController {
 	private ISalaryItemService salitemservice;
 	@Autowired
 	private ISalaryLocalStandService localstandservice;
-	/*
-	 * 
+	
+	/** 
 	 *  获取工资项列表
 	 * */
 	@RequestMapping("/getSalDemosteleLists")
@@ -88,8 +88,7 @@ public class SalaryDemoStEleController {
 		return new ModelAndView("salary/updemostelecp",modelMap);
 	}
 	
-	/*
-	 * 
+	/** 
 	 *  获取工资项列表
 	 * */
 	@RequestMapping("/getLocalStByareacode")
@@ -106,11 +105,9 @@ public class SalaryDemoStEleController {
 	}
 	
 	
-	
-	
-	/**
+   /**
 	* 保存模板项    之前的版本 修改日期：2015-12-8 11:07:35  刘佗
-	 */
+	*/
 	@RequestMapping("/saveSalstEleDemo")
 	public ModelAndView saveSalDemo(@RequestParam("standlist") String standlist,@RequestParam("demoname") String demoname ,
 			@RequestParam("demoid_st") String demoid_st ,
@@ -210,7 +207,7 @@ public class SalaryDemoStEleController {
 		}
 		return new ModelAndView(new MappingJacksonJsonView(),modelMap);
 	}
-	
+	//获取计算值
 	public String getCpvalue(String elename,String areacode){
 		String cpvalue = "0";
 		SalaryLocalStand salstand = localstandservice.findSalLocalStandByAreacode(areacode);

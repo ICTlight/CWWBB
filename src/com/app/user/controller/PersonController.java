@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,22 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.app.salary.domain.SalaryItem;
 import com.app.salary.service.ISalaryItemService;
-import com.app.user.domain.Company;
 import com.app.user.domain.Person;
 import com.app.user.domain.User;
-import com.app.user.service.ICompanyService;
 import com.app.user.service.IPersonService;
 import com.app.user.service.IUserService;
 import com.app.utils.BankUtils;
 import com.app.utils.MailUtils;
 import com.app.utils.Constants;
 /**
- * @ file_name UserController.java
- * @ author LiuTuo
- * @ description  
+ * 个人用户相关操作
+ * 
+ * LiuTuo 
  */
 @Controller
 public class PersonController {
@@ -40,8 +35,6 @@ public class PersonController {
 	private IPersonService personService;
 	@Autowired
 	private IUserService userService;
-	@Autowired
-	private ICompanyService companyService;
 	@Autowired
 	private ISalaryItemService salitemService;
 	
@@ -53,8 +46,6 @@ public class PersonController {
 	}
 	/**
    	 * 创建用户信息
-   	 * @param 
-   	 * @return 用户分页列表
    	 */
 	@RequestMapping("/addperson")
 	public ModelAndView addPerson(Person person,HttpServletRequest request) throws Exception {
@@ -200,8 +191,8 @@ public class PersonController {
 	}
 	
 	
-	/*
-	 * 激活企业注册
+	/**
+	 * 激活个人注册
 	 * */
     @RequestMapping(value = "/activePersonnal")
     public ModelAndView activePersonnal(Long userid,String email, String validate_code,HttpServletRequest request){

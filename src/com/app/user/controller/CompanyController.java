@@ -2,10 +2,8 @@ package com.app.user.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,13 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.app.user.domain.Company;
 import com.app.user.domain.User;
 import com.app.user.service.ICompanyService;
 import com.app.user.service.IUserService;
 import com.app.utils.MailUtils;
 
+/**
+	 * 企业用户相关操作
+	 *  
+	 * liutuo
+	 */
 @Controller
 public class CompanyController {
 
@@ -29,9 +31,9 @@ public class CompanyController {
 	@Autowired
 	private IUserService userService;
 	/**
-   	 * 创建用户信息
-   	 * @param 
-   	 * @return 用户分页列表
+   	 * 创建企业用户信息
+   	 *  
+   	 * liutuo
    	 */
 	@RequestMapping("/addcompany")
 	public ModelAndView addCompany(Company company,HttpServletRequest request) throws Exception {
@@ -85,7 +87,7 @@ public class CompanyController {
 		return  new ModelAndView("regist");		
 	}
 	
-	/*
+	/**
 	 * 激活企业注册
 	 * */
     @RequestMapping(value = "/activeCompany")
@@ -109,6 +111,9 @@ public class CompanyController {
         return  new ModelAndView("regist");
     }
     
+    /**
+	 * 唯一性校验
+	 * */
     @RequestMapping("/validatecompanyid")
 	public @ResponseBody Map<String,Object> validatecompanyid(@RequestParam("companyid") String companyid, HttpServletResponse resp) throws Exception {		
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -125,7 +130,9 @@ public class CompanyController {
 		return map;
 	}
     
-    
+    /**
+	 * 唯一性校验
+	 * */
 	@RequestMapping("/validatecompanyids")
 	public @ResponseBody Map<String,Object> validatecompanyids(@RequestParam("companyids") String companyids, HttpServletResponse resp) throws Exception {		
 		Map<String,Object> map = new HashMap<String,Object>();

@@ -5,11 +5,6 @@ package com.app.utils;
  *
  */
 public class BankUtils {
-//	public static void main(String[] args) {
-//		String cardNumber = "6258091370573003";//卡号
-//		String name = getNameOfBank(cardNumber);
-//		System.out.println(name);
-//	}
 
 	//传入卡号 得到银行名称
 	public static String getNameOfBank(String idCard) {

@@ -143,21 +143,6 @@
   <select id = "findSalItemCountByPeid" parameterType = "Long" resultType = "int">
        SELECT COUNT(*) FROM pp_period_items WHERE peid=#{peid} and statu="0"
   </select>
-<!--   <update id="deletePayitembypeid" parameterType="com.app.cpsal.domain.SalaryPayItems">      
-      UPDATE pp_period_items 
-      <set>
-      <if test="statu!=null and statu!=''"> 
-      		statu=#{statu,jdbcType=VARCHAR},
-      </if>
-      <if test="updateby!=null and updateby!=''"> 
-      		updateby=#{updateby,jdbcType=VARCHAR},
-      </if>     
-      <if test="updatetime!=null and updatetime!=''"> 
-      		updatetime=#{updatetime,jdbcType=DATE}
-      </if>
-      </set>
-      WHERE peid=#{peid} and statu="0"
-  </update> -->
   <update id="deletePayitembybyeleid" parameterType="com.app.cpsal.domain.SalaryPayItems">      
       UPDATE pp_period_items 
       <set>

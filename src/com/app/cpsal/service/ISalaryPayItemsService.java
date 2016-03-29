@@ -1,9 +1,7 @@
 package com.app.cpsal.service;
 
 import java.util.List;
-
 import com.app.cpsal.domain.SalaryPayItems;
-import com.app.utils.exception.DaoException;
 import com.app.utils.exception.ServiceException;
 
 public interface ISalaryPayItemsService {

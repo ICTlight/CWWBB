@@ -1,7 +1,6 @@
 package com.app.user.service;
 
 import com.app.user.domain.Person;
-import com.app.user.domain.User;
 import com.app.utils.exception.ServiceException;
 
 public interface IPersonService {

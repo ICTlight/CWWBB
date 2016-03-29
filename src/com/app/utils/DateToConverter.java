@@ -1,8 +1,8 @@
 package com.app.utils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.core.convert.converter.Converter;

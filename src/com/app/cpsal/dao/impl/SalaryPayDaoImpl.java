@@ -2,12 +2,10 @@ package com.app.cpsal.dao.impl;
 
 import java.util.List;
 import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
 import com.app.cpsal.dao.ISalaryPayDao;
 import com.app.cpsal.domain.SalaryPay;
 import com.app.utils.exception.DaoException;
@@ -61,7 +59,6 @@ public class SalaryPayDaoImpl implements ISalaryPayDao {
 		
 		System.out.println("huha: 最终的sql....。。。:  "+ sqlBuf.toString());
 		List<Map<String, Object>> dataList = jdbcTemplate.queryForList(sqlBuf.toString());
-		//System.out.println(sqlBuf.toString());
 		return dataList;
 	}
 

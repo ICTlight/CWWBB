@@ -3,24 +3,18 @@ package com.app.user.dao.impl;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.app.user.dao.IUserDao;
 import com.app.user.domain.User;
 import com.app.utils.exception.DaoException;
 
 @Component
 public class UserDaoImpl  implements IUserDao {  
-	  
-		 /** 
-	     * 注入sqlSessionTemplate 
-	     */  
-		@Autowired
-	    private SqlSessionTemplate sqlSessionTemplate;
+	   
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
 
 	/**
 	 * 创建用户功能
-	 * @param user
-	 * @return
 	 */
   @Override  
   public int saveUser(User user) throws DaoException{  

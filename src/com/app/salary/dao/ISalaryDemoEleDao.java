@@ -1,10 +1,7 @@
 package com.app.salary.dao;
 
 import java.util.List;
-
-import com.app.salary.domain.SalaryDemo;
 import com.app.salary.domain.SalaryDemoEle;
-import com.app.salary.domain.SalaryDemoStEle;
 import com.app.utils.exception.DaoException;
 
 public interface ISalaryDemoEleDao {
@@ -51,7 +48,7 @@ public interface ISalaryDemoEleDao {
     public int updateSalDemoelebyid(SalaryDemoEle salarydemoele) throws DaoException;
     
     /** 
- 	 * @  void delelebyeleid(SalaryDemoEle salarydemoele)
+ 	 * @ void delelebyeleid(SalaryDemoEle salarydemoele)
  	 * @ author LiuTuo
  	 * @ date 2015-11-10 14:47:55
  	 * @ description 根据eleid删除工资项

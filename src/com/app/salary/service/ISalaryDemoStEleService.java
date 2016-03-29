@@ -1,10 +1,7 @@
 package com.app.salary.service;
 
 import java.util.List;
-
 import com.app.salary.domain.SalaryDemoStEle;
-import com.app.salary.domain.SalaryItem;
-import com.app.utils.exception.DaoException;
 import com.app.utils.exception.ServiceException;
 
 public interface ISalaryDemoStEleService {

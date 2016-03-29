@@ -1,9 +1,7 @@
 package com.app.salary.service;
 
 import java.util.List;
-
 import com.app.salary.domain.SalaryDemoEle;
-import com.app.salary.domain.SalaryDemoStEle;
 import com.app.utils.exception.ServiceException;
 public interface ISalaryDemoEleService {
 

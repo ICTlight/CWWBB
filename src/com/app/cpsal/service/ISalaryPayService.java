@@ -2,9 +2,7 @@ package com.app.cpsal.service;
 
 import java.util.List;
 import java.util.Map;
-
 import com.app.cpsal.domain.SalaryPay;
-import com.app.utils.exception.DaoException;
 import com.app.utils.exception.ServiceException;
 
 public interface ISalaryPayService {

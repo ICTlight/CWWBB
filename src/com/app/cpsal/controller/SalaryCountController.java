@@ -3,37 +3,29 @@ package com.app.cpsal.controller;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.app.cpsal.domain.SalaryCount;
 import com.app.cpsal.domain.SalaryPayItems;
 import com.app.cpsal.service.ISalaryCountService;
 import com.app.cpsal.service.ISalaryPayItemsService;
-import com.app.salary.domain.SalaryDemo;
 import com.app.salary.domain.SalaryDemoStEle;
 import com.app.salary.domain.SalaryItem;
 import com.app.salary.domain.SalaryLocalStand;
-import com.app.salary.domain.SalaryStandEle;
-import com.app.salary.service.ISalaryDemoService;
 import com.app.salary.service.ISalaryDemoStEleService;
 import com.app.salary.service.ISalaryItemService;
 import com.app.salary.service.ISalaryLocalStandService;
-import com.app.salary.service.ISalaryStandEleService;
-import com.app.utils.Constants;
+
+/**
+ * 薪资数据预处理
+ * 员工、模板项信息添加或修改后会调用，预处理数据，以加快薪酬计算时的运算速度
+ * 
+ * liutuo  
+ * 
+ * */
 @Controller
 public class SalaryCountController {
 	
-	@Autowired
-	private ISalaryDemoService demoservice;
 	@Autowired
 	private ISalaryItemService itemservice;
 	@Autowired
@@ -72,12 +64,6 @@ public class SalaryCountController {
 		
 		payitem.setPeid(Long.valueOf(peid));
 		payitem.setIsstop("0");
-		Long salitemid;
-		Long eleid;
-		String elename;
-		String basevalue;
-		String fixedcode;
-		String cptype;
 		
 		//将sa_items中的基本项保存到pp_period_items
 		List<SalaryItem> baseitemlist = itemservice.findPeldelistByPeid(peid);
@@ -108,7 +94,6 @@ public class SalaryCountController {
 			String areacode = stelelist.get(0).getAreacode();
 			localstand = localservice.findSalLocalStandByAreacode(areacode);
 			
-			BigDecimal averagesal = localstand.getAveragesal();//6463
 			BigDecimal uplimit = localstand.getUplimit();//19389
 			BigDecimal lowlimit = localstand.getLowlimit();//2585
 			List<SalaryItem> standitemlist = itemservice.findSalstlistByPeid(peid);
@@ -173,7 +158,7 @@ public class SalaryCountController {
 		countSalary(demoid,peid);				
 		return yeah;
 	}
-	
+	//计算薪酬
 	public void countSalary(Long demoid,Long peid){
 		SalaryPayItems item = new SalaryPayItems();
 		SalaryCount salcount = new SalaryCount();
@@ -351,7 +336,7 @@ public class SalaryCountController {
 		}
 	}
 	
-	
+	//卡上下限
 	public BigDecimal getCpvalue(BigDecimal up,BigDecimal low,BigDecimal value ){
 		if(up.compareTo(value)<0){
 			return up;
@@ -361,9 +346,10 @@ public class SalaryCountController {
 			return value;
 		}
 	}
+	
+	//获取计算基数
 	public BigDecimal getCpbase(Long demoid,Long peid){
 		SalaryItem item = new SalaryItem();
-		SalaryCount salcount = new SalaryCount();
 		List<SalaryItem> salitem;
 		List<SalaryItem> cptyptitem;
 		List<SalaryItem> countitem;

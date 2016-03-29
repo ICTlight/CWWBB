@@ -5,21 +5,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
-
 import com.app.salary.domain.SalaryDemo;
 import com.app.salary.domain.SalaryDemoEle;
 import com.app.salary.domain.SalaryDemoStEle;
@@ -30,6 +26,11 @@ import com.app.salary.service.ISalaryDemoStEleService;
 import com.app.salary.service.ISalaryItemService;
 import com.app.utils.Constants;
 
+/**
+ * 薪酬模板相关操作
+ * 
+ * liutuo
+ * */
 @Controller
 public class SalaryDemoController {
 
@@ -41,7 +42,7 @@ public class SalaryDemoController {
 	private ISalaryDemoEleService saldemoeleservice;
 	@Autowired
 	private ISalaryDemoStEleService saldemosteleservice;
-	/*
+	/**
 	 * 
 	 *  获取工资模板列表
 	 * */
@@ -72,9 +73,8 @@ public class SalaryDemoController {
 	}
 	
 	/**
-	 * 
-	* @Description: 保存物料需求 
-	* @return ModelAndView      
+	 * 保存模板 
+	 * liutuo      
 	 */
 	@RequestMapping("/saveSalDemo")
 	public ModelAndView saveSalDemo(SalaryDemo salaryDemo,HttpServletRequest request) throws Exception { 
@@ -147,7 +147,8 @@ public class SalaryDemoController {
 				}else{
 					modelMap.put("message", "error");	
 					System.out.println("工资模板记录删除失败。。。。。");
-				}}
+				}
+			}
 			else{modelMap.put("message", "error");	System.out.println("工资模板删除失败。。。。。");}
 		} catch (Exception e) {			
 			System.out.println(e);

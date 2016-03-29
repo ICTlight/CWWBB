@@ -2,13 +2,9 @@ package com.app.salary.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,16 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
-
 import com.app.salary.domain.SalaryDemo;
 import com.app.salary.domain.SalaryDemoEle;
-import com.app.salary.domain.SalaryDemoStEle;
 import com.app.salary.domain.SalaryItem;
 import com.app.salary.service.ISalaryDemoEleService;
 import com.app.salary.service.ISalaryDemoService;
 import com.app.salary.service.ISalaryItemService;
 import com.app.utils.Constants;
 
+/**
+ * 模板项相关操作
+ * 
+ * liutuo
+ * */
 @Controller
 public class SalaryDemoEleController {
 
@@ -37,8 +36,8 @@ public class SalaryDemoEleController {
 	private ISalaryDemoService demoservice;
 	@Autowired
 	private ISalaryItemService salitemservice;
-	/*
-	 * 
+	
+	/**
 	 *  获取工资项列表
 	 * */
 	@RequestMapping("/getSalDemoeleLists")

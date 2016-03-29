@@ -6,18 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.app.user.dao.IPersonDao;
 import com.app.user.domain.Person;
 import com.app.user.service.IPersonService;
 import com.app.utils.exception.DaoException;
 import com.app.utils.exception.ServiceException;
 
-/**
- * @ file_name PersonServiceImpl.java
- * @ author LiuTuo
- * @ description 
- */
 @Component
 @Service
 @Transactional

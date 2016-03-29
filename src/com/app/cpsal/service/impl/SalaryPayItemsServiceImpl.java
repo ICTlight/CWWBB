@@ -1,14 +1,12 @@
 package com.app.cpsal.service.impl;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.app.cpsal.dao.ISalaryPayItemsDao;
 import com.app.cpsal.domain.SalaryPayItems;
 import com.app.cpsal.service.ISalaryPayItemsService;

@@ -3,12 +3,9 @@ package com.app.user.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -17,22 +14,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.app.user.domain.User;
 import com.app.user.service.ICompanyService;
 import com.app.user.service.IPersonService;
 import com.app.user.service.IUserService;
 import com.app.utils.Constants;
 
+
+/**
+ * 用户登录操作
+ * 
+ * liutuo
+ * */
 @Controller
 public class LoginController {
 
 	@Autowired
-	private ICompanyService companyService;
-	@Autowired
-	private IPersonService personService;
-	@Autowired
 	private IUserService userService;
+	/**
+	 * web登录
+	 * */
 	@RequestMapping("/login")
    	public @ResponseBody Map<String,Object> pelogin(@RequestParam("username") String username,@RequestParam("password") String password,HttpServletRequest req,HttpServletResponse resp) throws Exception {
    		Map<String,Object> map = new HashMap<String,Object>();
@@ -55,6 +56,10 @@ public class LoginController {
     	map.put("info", "fail");
 		return map;
    	}
+	
+	/**
+	 * app登录
+	 * */
 	@RequestMapping("/appLogin")
 	public @ResponseBody String appLogin(@RequestParam("username") String username,@RequestParam("password") String password,HttpServletRequest request, HttpServletResponse response) throws Exception {
    		Map<String,Object> map = new HashMap<String,Object>();
@@ -79,8 +84,7 @@ public class LoginController {
    	}
 	
 	public static<T> JSONObject objectToJson(T obj) throws JSONException, IOException {
-        ObjectMapper mapper = new ObjectMapper();  
-        // Convert object to JSON string  
+        ObjectMapper mapper = new ObjectMapper();   
         String jsonStr = "";
         try {
              jsonStr =  mapper.writeValueAsString(obj);

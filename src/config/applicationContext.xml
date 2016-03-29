@@ -30,16 +30,6 @@
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 		
 	</bean>
-<!-- 
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-		lazy-init="false">
-		<property name="locations">
-			<list>
-				<value>classpath:config/jdbc.properties</value>
-			</list>
-		</property>
-	</bean> -->
 
 <context:property-placeholder location="classpath:config/jdbc.properties"/>
  	

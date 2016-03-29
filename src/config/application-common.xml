@@ -33,7 +33,7 @@
             <value>934261905</value>
         </property>
         <property name="password">
-            <value>heihei654321qq19</value>
+            <value>heihei654321qq06</value>
         </property>
         <!-- 获得邮件会话属性,验证登录邮件服务器是否成功 -->
         <property name="javaMailProperties">

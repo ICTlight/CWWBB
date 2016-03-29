@@ -5,38 +5,34 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
-
 import com.app.cpsal.domain.SalaryCount;
 import com.app.cpsal.domain.SalaryPay;
 import com.app.cpsal.domain.SalaryPayItems;
 import com.app.cpsal.service.ISalaryCountService;
 import com.app.cpsal.service.ISalaryPayItemsService;
 import com.app.cpsal.service.ISalaryPayService;
-import com.app.salary.domain.SalaryDemoEle;
-import com.app.salary.domain.SalaryDemoStEle;
 import com.app.salary.domain.SalaryItem;
-import com.app.salary.service.ISalaryDemoService;
 import com.app.salary.service.ISalaryItemService;
 import com.app.utils.Constants;
 
+/**
+ * 计算薪酬
+ *  
+ *  直接调用之前的预处理结果完成薪资计算及展示
+ *  
+ *  liutuo
+ * */
 @Controller
 public class SalaryPayController {
 
-	@Autowired
-	private ISalaryDemoService demoservice;
 	@Autowired
 	private ISalaryPayItemsService itemservice;
 	@Autowired
@@ -86,6 +82,7 @@ public class SalaryPayController {
 		return list;
 	}
 	
+	//获取计算显示项目
 	@RequestMapping("/getPayLists")
 	public @ResponseBody List getPayLists(@RequestParam("demoid_st") String demoid_st,HttpServletRequest req,HttpServletRequest request,Model model) throws Exception {
 		
@@ -138,16 +135,9 @@ public class SalaryPayController {
 		return list;
 	}
 	
+	
+	//薪酬计算
 	public boolean toCompute(Long demoid){
-		
-		/*HttpSession session = req.getSession();
-		Long coid = (Long)session.getAttribute(Constants.USERID);
-		salCountController.countSal(demoid,Long.valueOf(peid),coid);*/
-		
-		
-		
-		
-		
 		
 		//============之前的计算================
 		SalaryPay touppay = new SalaryPay();
@@ -275,22 +265,6 @@ public class SalaryPayController {
 						
 						//================================================公司赋税=================================================
 						
-						
-						
-						
-						//======================================================================================================
-						//存储过程里为：AFT_TAX_ENVP_VALUE + AFT_TAX_ENVN_VALUE+AFT_TAX_PAY_VALUE+ AFT_TAX_NOPAY_VALUE
-	//					if(aft_tax_pay_sum!=null&&aft_tax_nopay_sum!=null){
-	//						tax_bef_tol = bpm.add(bip).subtract(bim);
-	//					}else if(bip==null&&bim!=null){
-	//						tax_bef_tol = bpm.subtract(bim);
-	//					}
-	//					else if(bip==null&&bim!=null){
-	//						tax_bef_tol = bpm.add(bip);
-	//					}else{
-	//						tax_bef_tol = bpm;
-	//					}
-						
 						//bpm:税前收入合计
 						BigDecimal salary_pay = new BigDecimal("0");
 					    BigDecimal tax_cpay_nopay_sum = new BigDecimal("0");
@@ -323,6 +297,7 @@ public class SalaryPayController {
 		return false;
 	}
 	
+	//获取税率，可直接取数据库表
 	public List getTaxValue(BigDecimal tax_tol){
 		ArrayList taxlist = new ArrayList();
 		double tax_tol_d = tax_tol.doubleValue();

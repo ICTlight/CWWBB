@@ -3,7 +3,6 @@ package com.app.cpsal.dao;
 import java.util.List;
 
 import com.app.cpsal.domain.SalaryPayItems;
-import com.app.salary.domain.SalaryItem;
 import com.app.utils.exception.DaoException;
 
 public interface ISalaryPayItemsDao {
