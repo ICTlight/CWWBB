@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.cpsal.domain.SalaryCount">
+<resultMap id="salaryCountMapper"  type="com.app.cpsal.domain.SalaryCount">
+    	<id  property="countid" column="countid"  javaType="long" jdbcType="NUMERIC"/>
+    	<id  property="peid" column="peid"  javaType="long" jdbcType="NUMERIC"/>
+    	<result property="pename" column="pename"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+    	<result  property="demoid" column="demoid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="demoname" column="demoname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coid" column="coid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="coname" column="coname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="idnumber" column="idnumber"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result property="TAX_BASE" column="TAX_BASE"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result property="TAX_NO" column="TAX_NO"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result property="TAX_BEF_PLUS" column="TAX_BEF_PLUS"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="TAX_BEF_MINUS" column="TAX_BEF_MINUS"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="TAX_AFT_PLUS" column="TAX_AFT_PLUS"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="TAX_AFT_MINUS" column="TAX_AFT_MINUS"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="TAX_INCOME_PLUS" column="TAX_INCOME_PLUS"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="TAX_INCOME_MINUS" column="TAX_INCOME_MINUS"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="TAX_PLUS" column="TAX_PLUS"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="TAX_MINUS" column="TAX_MINUS"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="AFT_TAX_ENVP" column="AFT_TAX_ENVP"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="AFT_TAX_ENVN" column="AFT_TAX_ENVN"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="createby" column="createby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="statu" column="statu"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="updateby" column="updateby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
+        <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>        
+    </resultMap>
+    
+    <insert id="saveSalCount" parameterType="com.app.cpsal.domain.SalaryCount">    
+      INSERT INTO sa_count (countid,peid,pename,demoid,demoname,coid,coname,idnumber,TAX_BASE,TAX_NO,TAX_BEF_PLUS,TAX_BEF_MINUS,TAX_AFT_PLUS,TAX_AFT_MINUS,TAX_INCOME_PLUS,TAX_INCOME_MINUS,TAX_PLUS,TAX_MINUS,AFT_TAX_ENVP,AFT_TAX_ENVN,createtime,createby,statu)
+      VALUES(
+        #{countid,jdbcType=NUMERIC},
+        #{peid,jdbcType=NUMERIC},
+        #{pename,jdbcType=VARCHAR},        
+        #{demoid,jdbcType=NUMERIC},        
+        #{demoname,jdbcType=VARCHAR},
+        #{coid,jdbcType=NUMERIC},        
+        #{coname,jdbcType=NUMERIC}, 
+        #{idnumber,jdbcType=VARCHAR},  
+        #{TAX_BASE,jdbcType=NUMERIC},  
+        #{TAX_NO,jdbcType=NUMERIC},  
+        #{TAX_BEF_PLUS,jdbcType=NUMERIC},        
+        #{TAX_BEF_MINUS,jdbcType=NUMERIC},        
+        #{TAX_AFT_PLUS,jdbcType=NUMERIC},        
+        #{TAX_AFT_MINUS,jdbcType=NUMERIC},
+        #{TAX_INCOME_PLUS,jdbcType=NUMERIC},        
+        #{TAX_INCOME_MINUS,jdbcType=NUMERIC}, 
+        #{TAX_PLUS,jdbcType=NUMERIC},  
+        #{TAX_MINUS,jdbcType=NUMERIC},
+        #{AFT_TAX_ENVP,jdbcType=NUMERIC},        
+        #{AFT_TAX_ENVN,jdbcType=NUMERIC},
+        #{createtime,jdbcType=DATE},        
+        #{createby,jdbcType=VARCHAR},  
+        #{statu,jdbcType=VARCHAR} 
+     )
+  </insert>
+  <update id="updateSalCountbyid" parameterType="com.app.cpsal.domain.SalaryCount">      
+      UPDATE sa_count 
+      <set>
+      <if test="TAX_NO!=null and TAX_NO!=''"> 
+      		TAX_NO=#{TAX_NO,jdbcType=NUMERIC},
+      </if>
+      <if test="TAX_BEF_PLUS!=null and TAX_BEF_PLUS!=''"> 
+      		TAX_BEF_PLUS=#{TAX_BEF_PLUS,jdbcType=NUMERIC},
+      </if>
+      <if test="TAX_BEF_MINUS!=null and TAX_BEF_MINUS!=''"> 
+      		TAX_BEF_MINUS=#{TAX_BEF_MINUS,jdbcType=NUMERIC},
+      </if>      
+      <if test="TAX_AFT_PLUS!=null and TAX_AFT_PLUS!=''"> 
+      		TAX_AFT_PLUS=#{TAX_AFT_PLUS,jdbcType=NUMERIC},
+      </if>     
+      <if test="TAX_AFT_MINUS!=null and TAX_AFT_MINUS!=''"> 
+      		TAX_AFT_MINUS=#{TAX_AFT_MINUS,jdbcType=NUMERIC},
+      </if>
+      <if test="TAX_INCOME_PLUS!=null and TAX_INCOME_PLUS!=''"> 
+      		TAX_INCOME_PLUS=#{TAX_INCOME_PLUS,jdbcType=NUMERIC},
+      </if>
+      <if test="TAX_INCOME_MINUS!=null and TAX_INCOME_MINUS!=''"> 
+      		TAX_INCOME_MINUS=#{TAX_INCOME_MINUS,jdbcType=NUMERIC},
+      </if>     
+      <if test="TAX_PLUS!=null and TAX_PLUS!=''"> 
+      		TAX_PLUS=#{TAX_PLUS,jdbcType=NUMERIC},
+      </if>      
+      <if test="TAX_MINUS!=null and TAX_MINUS!=''"> 
+      		TAX_MINUS=#{TAX_MINUS,jdbcType=NUMERIC},
+      </if>
+      <if test="AFT_TAX_ENVP!=null and AFT_TAX_ENVP!=''"> 
+      		AFT_TAX_ENVP=#{AFT_TAX_ENVP,jdbcType=NUMERIC},
+      </if>
+      <if test="AFT_TAX_ENVN!=null and AFT_TAX_ENVN!=''"> 
+      		AFT_TAX_ENVN=#{AFT_TAX_ENVN,jdbcType=NUMERIC},
+      </if>
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR}
+      </if>   
+      </set>
+      WHERE countid=#{countid}
+  </update>
+  
+  <select id="getsalcountid" parameterType="Long" resultType="Long">
+  	<![CDATA[
+  	 SELECT _nextval('sa_count')
+  	]]>
+  </select>
+  
+  <select id="findSalCountByPeid" parameterType="Long" resultType="com.app.cpsal.domain.SalaryCount">
+  	<![CDATA[
+  	 SELECT * FROM sa_count WHERE peid=#{peid} and statu="0"
+  	]]>
+  </select>
+  
+    <update id="deletePaycountbypeid" parameterType="com.app.cpsal.domain.SalaryCount">      
+      UPDATE sa_count 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE peid=#{peid} and statu="0"
+  </update>
+  <update id="deletePaycountbybyeleid" parameterType="com.app.cpsal.domain.SalaryCount">      
+      UPDATE sa_count 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE eleid=#{eleid} and statu="0"
+  </update>
+  
+  <update id="deletePaycountbydemoid" parameterType="com.app.cpsal.domain.SalaryCount">      
+      UPDATE sa_count 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE demoid=#{demoid} and statu="0"
+  </update>
+</mapper>

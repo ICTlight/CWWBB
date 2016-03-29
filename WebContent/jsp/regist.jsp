@@ -1,20 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@include file="/jsp/utils/taglibs.jsp" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+  <%@include file="/jsp/utils/meta.jsp" %> 
+  <%@include file="/jsp/utils/common_css.jsp" %> 
+  <%@include file="/jsp/utils/common_js.jsp" %> 
+  <%@include file="/jsp/utils/firpage_js.jsp" %> 
   <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/registstyle.css" type="text/css" media="screen"/>
-  <link href="<%=request.getContextPath() %>/bootstrap/css/bootstrap-3.0.3.min.css" rel="stylesheet" type="text/css"/>
-  <script src="<%=request.getContextPath() %>/bootstrap/js/jquery-2.1.4.min.js"></script>
-  <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap-3.0.3.min.js"></script> 
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/jira.css" type="text/css" media="all">
-  <script src="<%=request.getContextPath() %>/assets/js/1096093.js"></script>
-  <script src="<%=request.getContextPath() %>/assets/js/atl-analytics.min.js"></script>
-  <script src="<%=request.getContextPath() %>/assets/js/global.js"></script>
-  <script src="<%=request.getContextPath() %>/assets/js/jquery-waypoints.js"></script>
-  <script src="<%=request.getContextPath() %>/assets/js/product-tour-template.js"></script>
-  <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/conversion.js"></script>
   <title>财务外包--注册</title>    
     <style>
         span.reference{
@@ -301,24 +294,70 @@
     {
   	  	  var input=document.getElementById("password");
   	      var input_value=input.value;
-            if(document.getElementById('password').value==""){
+             if(document.getElementById('password').value==""){
           	  document.getElementById("passwordInfo").innerHTML="请输入6-15位密码";
             }else if(input_value.length>15||input_value.length<6){
           	  document.getElementById("passwordInfo").innerHTML="请输入6-15位密码";
-            }else{document.getElementById("passwordInfo").innerHTML="";}
+            }else{document.getElementById("passwordInfo").innerHTML="";} 
     }
     function lostidnumber()
     {
   	  	  var input=document.getElementById("idnumber");
   	      var input_value=input.value;
-  	    alert("0");
-            if(document.getElementById('idnumber').value==""){
-            	alert("1");
+  	    var res= IdentityCodeValid(input_value);
+   	   alert(res);//这个res是boolean值
+            /* if(document.getElementById('idnumber').value==""){
           	  document.getElementById("idnumberInfo").innerHTML="请输入有效的身份证号码";
             }else if(input_value.length!=0&&input_value.length!=15&&input_value.length!=18){
-            	alert("2");
           	  document.getElementById("idnumberInfo").innerHTML="请输入有效的身份证号码";
-            }else{alert("3");document.getElementById("idnumberInfo").innerHTML="";}
+            }else{document.getElementById("idnumberInfo").innerHTML="";} */
+    }
+    function IdentityCodeValid(code) { 
+        var city={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};
+        var tip = "";
+        var pass= true;
+        
+        /* if(!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)){
+            tip = "身份证号格式错误";
+            pass = false;
+        } */
+        if (!code || !/^[1-9][0-9]{5}(19[0-9]{2}|200[0-9]|2010)(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])[0-9]{3}[0-9xX]$/i.test(code)) {
+            tip = "身份证号格式错误";
+            pass = false;
+        }
+
+        
+       else if(!city[code.substr(0,2)]){
+            tip = "地址编码错误";
+            pass = false;
+        }
+        else{
+            //18位身份证需要验证最后一位校验位
+            if(code.length == 18){
+                code = code.split('');
+                //∑(ai×Wi)(mod 11)
+                //加权因子
+                var factor = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 ];
+                //校验位
+                var parity = [ 1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2 ];
+                var sum = 0;
+                var ai = 0;
+                var wi = 0;
+                for (var i = 0; i < 17; i++)
+                {
+                    ai = code[i];
+                    wi = factor[i];
+                    sum += ai * wi;
+                }
+                var last = parity[sum % 11];
+                if(parity[sum % 11] != code[17].toUpperCase()){
+                    tip = "校验位错误";
+                    pass =false;
+                }
+            }
+        }
+        if(!pass) alert(tip);
+        return pass;
     }
     
     function lostphone()
@@ -428,19 +467,15 @@
      
      function lostcompanyid()
      {
-    	 alert("1");
        var input=document.getElementById("companyid");
        var input_value=input.value;
        if(input_value==""){
-    	   alert("2");
      	  document.getElementById("companyidInfo").innerHTML="请输入正确的营业执照代码";
        }
        else if(input_value!=""&&input_value.length!=13){
-    	   alert("4");
     	   document.getElementById("companyid").innerHTML="请输入正确的营业执照代码";
          }
        else{
-    	   alert("5");
        	  $.ajax( {   
          	      type : "POST",   
          	      url : "<%=request.getContextPath()%>/validatecompanyid", 
@@ -463,17 +498,20 @@
     function check_data(){
     	var role = document.getElementById('role').value;
     	if(document.getElementById('email').value==""){
-            document.getElementById("emailInfo").innerHTML="邮箱不能为空"; 
+            document.getElementById("emailInfo").innerHTML="邮箱不能为空";             
+            document.getElementById("registerInfo").innerHTML="邮箱不能为空";
             return false;
-        }
+        }else{document.getElementById("registerInfo").innerHTML="";}
     	if(document.getElementById('username').value==""){
-            document.getElementById("usernameInfo").innerHTML="用户名不能为空"; 
+            document.getElementById("usernameInfo").innerHTML="用户名不能为空";
+            document.getElementById("registerInfo").innerHTML="用户名不能为空";
             return false;
-        }
+        }else{document.getElementById("registerInfo").innerHTML="";}
     	if(document.getElementById('password').value==""){
-            document.getElementById("passwordInfo").innerHTML="手机号不能为空"; 
+            document.getElementById("passwordInfo").innerHTML="密码不能为空"; 
+            document.getElementById("registerInfo").innerHTML="密码不能为空";
             return false;
-        }
+        }else{document.getElementById("registerInfo").innerHTML="";}
     	if(role=="pe"){ 
             var form = document.getElementById("formElem");
             form.action = "${pageContext.request.contextPath}/addperson";   
@@ -624,6 +662,7 @@
                             <p class="submit">
                                  <!-- <button id="registerButton" type="submit">注册</button>  -->
                                  <button id="registerButton" type="button" onclick="check_data();">注册</button> 
+                                 <small id="registerInfo" style="color:#FF0000"></small>
                                 <!-- <input type="button" value="注册" class="btn btn-info btn-large" onclick="check_data();"> -->
                             </p>
                         </fieldset>

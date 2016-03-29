@@ -1,20 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@include file="/jsp/utils/taglibs.jsp" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
-  <link href="<%=request.getContextPath() %>/bootstrap/css/bootstrap-3.0.3.min.css" rel="stylesheet" type="text/css"/>
-  <script src="<%=request.getContextPath() %>/bootstrap/js/jquery-2.1.4.min.js"></script>
-  <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap-3.0.3.min.js"></script> 
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/jira.css" type="text/css" media="all">
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/common.css" type="text/css">
-  <script src="<%=request.getContextPath() %>/assets/js/1096093.js"></script>
-  <script src="<%=request.getContextPath() %>/assets/js/atl-analytics.min.js"></script>
-  <script src="<%=request.getContextPath() %>/assets/js/global.js"></script>
-  <script src="<%=request.getContextPath() %>/assets/js/jquery-waypoints.js"></script>
-  <script src="<%=request.getContextPath() %>/assets/js/product-tour-template.js"></script>
-  <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/conversion.js"></script>
+  <%@include file="/jsp/utils/meta.jsp" %> 
+  <%@include file="/jsp/utils/common_css.jsp" %> 
+  <%@include file="/jsp/utils/common_js.jsp" %> 
+  <%@include file="/jsp/utils/firpage_js.jsp" %> 
   <title>财务外包--首页</title>    
     <style>
         @media only screen and (min-width : 992px) {
@@ -59,12 +51,18 @@
        	      success : function(data) { 
      	          if(data.info=="success"){       	        	  
      	        	document.getElementById("loginmsg").innerHTML=""; 
+     	        	if(data.usertype=="个人用户"){
+     	        		document.getElementById("tomypage").href="/CWWBB/jsp/pemypage.jsp"
+     	        	}
      	        	var torefresh = document.getElementById("tomypage");
       	        	torefresh.click();
      	          }   
      	          else if(data.info=="noemailexam"){
      	        	alert("您的邮箱未激活，请先激活您的邮箱！");
      	        	document.getElementById("loginmsg").innerHTML="";
+     	        	if(data.usertype=="个人用户"){
+     	        		document.getElementById("tomypage").href="/CWWBB/jsp/pemypage.jsp"
+     	        	}
      	        	var torefresh = document.getElementById("tomypage");
       	        	torefresh.click();
      	          }
@@ -86,16 +84,18 @@
 	
 </head>
 <body id="products" class=" jira en">
+<%session = request.getSession();   %>
+ 	 <h1 id="usertype" style="display:none" ><%=session.getAttribute("usertype")%></h1> 
 <div id="container" class="container">
 	<header id="header">
         <jsp:include page="/jsp/utils/head.jsp"></jsp:include>
     </header>
 	<div id="contentContainer">
        <div class="row">
-    	<div class="col-lg-8">
+    	<div class="col-sm-8">
     		<img src="<%=request.getContextPath() %>/assets/img/wall.jpg" alt="" />
         </div> 
-      <div id="logindiv" class="col-lg-4">
+      <div id="logindiv" class="col-sm-4">
         <div class="span4">
         	
           <div >

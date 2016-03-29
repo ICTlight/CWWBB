@@ -11,12 +11,13 @@ code {
   font-family: "Consolas", "Monaco", monospace;
   font-weight: normal; }
 
-body, html, p, code {
-  color: #888888; }
-
-h1, h2, h3, h4, h5, h6 {
+ body, html, p, code {
+  color: #888888; } 
+  
+h1, h2, h3, h4,  h6 {
   color: #444444; }
-
+h4,h5 {
+  color: #ffffff; }
 pre {
   overflow: scroll;
   background: #eeeeee;

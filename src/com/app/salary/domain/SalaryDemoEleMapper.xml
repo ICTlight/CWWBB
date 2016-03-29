@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.salary.domain.SalaryDemoEle">
+<resultMap id="salaryDemoEleMapper"  type="com.app.salary.domain.SalaryDemoEle">
+    	<id  property="eleid" column="eleid"  javaType="long" jdbcType="NUMERIC"/>
+        <result property="elename" column="elename"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="fixedcode" column="fixedcode"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="isshow" column="isshow"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="cptype" column="cptype"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="precisions" column="precisions"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="demoid" column="demoid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="demoname" column="demoname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coname" column="coname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="ot" column="ot"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="statu" column="statu"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coid" column="coid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="createby" column="createby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="updateby" column="updateby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
+        <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>        
+    </resultMap>
+    
+    <insert id="saveSaldemoEle" parameterType="com.app.salary.domain.SalaryDemoEle">    
+      INSERT INTO sa_demo_base (eleid,elename,fixedcode,isshow,cptype,precisions,coid,demoname,demoid,coname,createby,statu,createtime)
+      VALUES(
+        #{eleid,jdbcType=NUMERIC},
+        #{elename,jdbcType=VARCHAR},
+        #{fixedcode,jdbcType=VARCHAR},        
+        #{isshow,jdbcType=VARCHAR},        
+        #{cptype,jdbcType=VARCHAR},
+        #{precisions,jdbcType=VARCHAR},        
+        #{coid,jdbcType=NUMERIC}, 
+        #{demoname,jdbcType=NUMERIC},  
+        #{demoid,jdbcType=NUMERIC},  
+        #{coname,jdbcType=VARCHAR},        
+        #{createby,jdbcType=VARCHAR},
+        #{statu,jdbcType=VARCHAR},
+        #{createtime,jdbcType=DATE}   
+     )
+  </insert>
+  <update id="updateSalDemoelebyid" parameterType="com.app.salary.domain.SalaryDemoEle">      
+      UPDATE sa_demo_base 
+      <set>
+      <if test="elename!=null and elename!=''"> 
+      		elename=#{elename,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedcode!=null and fixedcode!=''"> 
+      		fixedcode=#{fixedcode,jdbcType=VARCHAR},
+      </if>      
+      <if test="isshow!=null and isshow!=''"> 
+      		isshow=#{isshow,jdbcType=VARCHAR},
+      </if>     
+      <if test="cptype!=null and cptype!=''"> 
+      		cptype=#{cptype,jdbcType=VARCHAR},
+      </if>
+      <if test="precisions!=null and precisions!=''"> 
+      		precisions=#{precisions,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE eleid=#{eleid}
+  </update>
+  
+	<!-- 根据id查找用户信息 -->
+  <select id="findSaldemoEleByEleid" parameterType="Long" resultType="com.app.salary.domain.SalaryDemoEle">
+  	<![CDATA[
+  	 SELECT * FROM sa_demo_base WHERE eleid=#{eleid}  and statu="0"
+  	]]>
+  </select>
+  
+  <select id="getsaldemoeleid" parameterType="Long" resultType="Long">
+  	<![CDATA[
+  	 SELECT _nextval('sa_demo_base')
+  	]]>
+  </select>
+  
+  <!-- 根据模板id查找模板信息 -->
+  <select id="findSaldemoeleBydemoid" parameterType="Long" resultType="com.app.salary.domain.SalaryDemoEle">
+  	<![CDATA[
+  	 SELECT * FROM sa_demo_base WHERE demoid=#{demoid}  and statu="0"
+  	]]>
+  </select>
+  <!-- 根据企业id查找模板信息 -->
+  <select id="findSaldemoeleBycoid" parameterType="Long" resultType="com.app.salary.domain.SalaryDemoEle">
+  	<![CDATA[
+  	 SELECT * FROM sa_demo_base WHERE coid=#{coid}  and statu="0"
+  	]]>
+  </select>
+  
+<update id="delelebyeleid" parameterType="com.app.salary.domain.SalaryDemoEle">      
+      UPDATE sa_demo_base 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE eleid=#{eleid} 
+  </update>
+  
+  <update id="delelebydemoid" parameterType="com.app.salary.domain.SalaryDemoEle">      
+      UPDATE sa_demo_base 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE demoid=#{demoid}
+  </update>
+</mapper>

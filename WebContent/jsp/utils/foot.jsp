@@ -1,10 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@include file="/jsp/utils/taglibs.jsp" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <%@include file="/jsp/utils/meta.jsp" %> 
 </head>
 <body>
+<div class="container-fluid">
 	<div class="grid grid-1 flush-bottom">
             <ul class="footer-primary-links">
                 <li><a href="" >我的账户</a></li>
@@ -19,6 +21,7 @@
                 <li><a href="" >服务条款</a></li>
                 <li>&copy; 2015 FESCO</li>
             </ul>
+    </div>
     </div>
 </body>
 </html>

@@ -26,7 +26,7 @@ public class MailUtils {
            simpleMailMessage.setTo(email);
            simpleMailMessage.setFrom("934261905@qq.com");
            simpleMailMessage.setText(text);
-           simpleMailMessage.setSubject("工料通注册--账号激活邮件");
+           simpleMailMessage.setSubject("财务外包注册--账号激活邮件");
            javaMailSender.send(simpleMailMessage);
            return "邮件发送成功";
            }catch (Exception e){

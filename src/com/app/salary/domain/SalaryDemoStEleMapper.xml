@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.salary.domain.SalaryDemoStEle">
+<resultMap id="salaryDemoStEleMapper"  type="com.app.salary.domain.SalaryDemoStEle">
+    	<id  property="eleid" column="eleid"  javaType="long" jdbcType="NUMERIC"/>
+        <result property="elename" column="elename"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="fixedcode" column="fixedcode"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="isshow" column="isshow"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="cptype" column="cptype"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="precisions" column="precisions"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="demoid" column="demoid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="demoname" column="demoname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coname" column="coname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="areacode" column="areacode"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="statu" column="statu"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coid" column="coid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="createby" column="createby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="updateby" column="updateby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
+        <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>
+        <result  property="cpvalue" column="cpvalue"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="basecode" column="basecode"  javaType="java.lang.String" jdbcType="VARCHAR"/>          
+    </resultMap>
+    
+    <insert id="saveSaldemostele" parameterType="com.app.salary.domain.SalaryDemoStEle">    
+      INSERT INTO sa_demo_stand (eleid,elename,fixedcode,isshow,cptype,areacode,cpvalue,precisions,coid,demoname,demoid,coname,createby,createtime,basecode,statu)
+      VALUES(
+        #{eleid,jdbcType=NUMERIC},
+        #{elename,jdbcType=VARCHAR},
+        #{fixedcode,jdbcType=VARCHAR},        
+        #{isshow,jdbcType=VARCHAR},        
+        #{cptype,jdbcType=VARCHAR},
+        #{areacode,jdbcType=VARCHAR},
+        #{cpvalue,jdbcType=NUMERIC},   
+        #{precisions,jdbcType=VARCHAR},        
+        #{coid,jdbcType=NUMERIC}, 
+        #{demoname,jdbcType=NUMERIC},  
+        #{demoid,jdbcType=NUMERIC},  
+        #{coname,jdbcType=VARCHAR},        
+        #{createby,jdbcType=VARCHAR},
+        #{createtime,jdbcType=DATE},
+        #{basecode,jdbcType=VARCHAR},
+        #{statu,jdbcType=VARCHAR}   
+     )
+  </insert>
+  <update id="updateSaldemostelebyid" parameterType="com.app.salary.domain.SalaryDemoStEle">      
+      UPDATE sa_demo_stand 
+      <set>
+      <if test="elename!=null and elename!=''"> 
+      		elename=#{elename,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedcode!=null and fixedcode!=''"> 
+      		fixedcode=#{fixedcode,jdbcType=VARCHAR},
+      </if>      
+      <if test="isshow!=null and isshow!=''"> 
+      		isshow=#{isshow,jdbcType=VARCHAR},
+      </if>     
+      <if test="cptype!=null and cptype!=''"> 
+      		cptype=#{cptype,jdbcType=VARCHAR},
+      </if>
+      <if test="precisions!=null and precisions!=''"> 
+      		precisions=#{precisions,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode!=null and areacode!=''"> 
+      		areacode=#{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="cpvalue!=null and cpvalue!=''"> 
+      		cpvalue=#{cpvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE},
+      </if>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR}
+      </if>
+      </set>
+      WHERE eleid=#{eleid} 
+  </update>
+  
+	<!-- 根据id查找用户信息 -->
+  <select id="findSaldemosteleByEleid" parameterType="Long" resultType="com.app.salary.domain.SalaryDemoStEle">
+  	<![CDATA[
+  	 SELECT * FROM sa_demo_stand WHERE eleid=#{eleid} and statu="0"
+  	]]>
+  </select>
+  
+  <select id="getsaldemosteleid" parameterType="Long" resultType="Long">
+  	<![CDATA[
+  	 SELECT _nextval('sa_demo_stand')
+  	]]>
+  </select>
+  
+  <!-- 根据模板id查找模板信息 -->
+  <select id="findSaldemosteleBydemoid" parameterType="Long" resultType="com.app.salary.domain.SalaryDemoStEle">
+  	<![CDATA[
+  	 SELECT * FROM sa_demo_stand WHERE demoid=#{demoid} and statu="0"
+  	]]>
+  </select>
+  
+  <!-- 根据模板id查找模板信息 -->
+  <select id="findBasecodeBydemoid" parameterType="Long" resultType="com.app.salary.domain.SalaryDemoStEle">
+  	<![CDATA[
+  	 SELECT DISTINCT basecode  FROM sa_demo_stand WHERE demoid=#{demoid} and statu="0"
+  	]]>
+  </select>
+  
+  <!-- 根据企业id查找模板信息 -->
+  <select id="findSaldemosteleBycoid" parameterType="Long" resultType="com.app.salary.domain.SalaryDemoStEle">
+  	<![CDATA[
+  	 SELECT * FROM sa_demo_stand WHERE coid=#{coid} and statu="0"
+  	]]>
+  </select>
+  
+  <update id="delstelebyeleid" parameterType="com.app.salary.domain.SalaryDemoStEle">      
+      UPDATE sa_demo_stand 
+      <set>
+      
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE},
+      </if>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR}
+      </if>
+      </set>
+      WHERE eleid=#{eleid}
+  </update>
+  
+  <update id="delstelebydemoid" parameterType="com.app.salary.domain.SalaryDemoStEle">      
+      UPDATE sa_demo_stand 
+      <set>
+      
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE},
+      </if>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR}
+      </if>
+      </set>
+      WHERE demoid=#{demoid}
+  </update>
+  <delete id="deleteSaldemosteleBydemoid" parameterType="Long">
+  	DELETE FROM sa_demo_stand WHERE demoid=#{demoid}
+  </delete>
+</mapper>

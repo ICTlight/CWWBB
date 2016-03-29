@@ -4,6 +4,10 @@
 <!DOCTYPE HTML>
 <html>
   <head>
+  <%@include file="/jsp/utils/meta.jsp" %> 
+  <%@include file="/jsp/utils/common_css.jsp" %> 
+  <%@include file="/jsp/utils/common_js.jsp" %> 
+  <%@include file="/jsp/utils/mypage_js.jsp" %>	
     <style type="text/css">    
        .modal-dialo {
 		    position: fixed; 
@@ -14,15 +18,40 @@
 		 right: 0px; 
 		  z-index: 1050; 
 		    width: 500px
-		}
-		
+		}		
      </style>
-     <script type="text/javascript">
-     $(function(){
-	     $(document).on("hidden.bs.modal", function (e) {
+      <script type="text/javascript">
+      $(function(){
+    	  /*   $(document).on("hidden.bs.modal", function (e) {
 	 	    $(e.target).removeData("bs.modal").find(".modal-content").empty();
-	 	});
+	 	}); */   
+	      /* $("#addsaldemoModel").on("hidden.bs.modal", function() {
+	    	  alert("1");
+	    	    $(this).removeData("bs.modal");
+	    	}); */ 
+	    /* $('body').on('hidden.bs.modal', '.modal', function () { 
+	    	   alert("1");
+	    	   $(this).removeData('bs.modal'); 
+	    });  */
+    	 /* $('body').on('hidden.bs.modal', '.modal', function (e) {
+    		 alert("1");
+    		 $(e.target).removeData("bs.modal").find(".modal-content").empty();
+ 	 	}); */
+	      /* $("#addsaldemoModel").on("hidden", function() {
+	    	  alert("1");
+	    	    $(this).removeData("modal");
+	    	}); */
+    	$("#addsaldemoModel").on("hidden.bs.modal", function() {
+    		 $(this).remove(".modal");   		 
+    	}); 
+	    	
+    	 
      });
+     /* function closedemoModel(){
+		 alert("3");
+   	  $("#addsaldemoModel").modal("hide");
+   	//$("#href_addsal").html("");
+     } */
      </script>
   </head>
   <body>
@@ -52,19 +81,19 @@
 		                 <div class="form-group">
 		                     <label class="col-md-5 control-label">英文名称:</label>
 		                     <div class="col-md-7">
-		                       <input type="text" class="form-control required" name="saldemoen"  id="saldemoen" />
+		                       <input type="text" class="form-control" name="saldemoen"  id="saldemoen" />
 		                     </div>
 		                 </div> 
 		                 <div class="form-group">
 		                     <label class="col-md-5 control-label">模板简称:</label>
 		                     <div class="col-md-7">
-		                       <input type="text" class="form-control required" name="saldemost"  id="saldemost" />
+		                       <input type="text" class="form-control" name="saldemost"  id="saldemost" />
 		                     </div>
 		                 </div>
 		                 <div class="form-group">
 		                     <label class="col-md-5 control-label">模板描述:</label>
 		                     <div class="col-md-7">
-		                       <input type="text" class="form-control required" name="saldemods"  id="saldemods" />
+		                       <input type="text" class="form-control" name="saldemods"  id="saldemods" />
 		                     </div>
 		                 </div>	
 		                 </div>	
@@ -88,14 +117,13 @@
             $.ajax({ 
                  type: "POST", 
                  url: "<%=request.getContextPath() %>/saveSalDemo",
-                 async : false, 
+                 async : true, 
                  data: $("#validate-2").serialize(),
                  success: function(mes) { 
-                 	if(mes.message=="success") {
-			 			jQuery("#pbEmpTablelw").trigger("reloadGrid");   			
+                 	if(mes.message=="success") {  			
 			 			$("#addsaldemoModel").modal("hide");
-			 			$("#addsaldemoModel").empty();
-			 			torefresh();
+			 			//$("#addsaldemoModel").empty();
+			 			toadddemos();
 			 			alert("模板添加成功");
 					}else if(mes.message=="error"){
 						alert("模板添加失败");
@@ -105,6 +133,7 @@
         }    
 	    });
 	 });
+      
     </script>  	
   </body>
 </html>

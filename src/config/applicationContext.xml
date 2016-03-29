@@ -58,21 +58,6 @@
         <constructor-arg><ref bean="dataSource"/></constructor-arg> 
     </bean>
     
-    
-	<!-- 配置数据源 -->
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="${db.driver}" />
-		<property name="url" value="${db.url}" />
-		<property name="username" value="${db.username}" />
-		<property name="password" value="${db.password}" />
-		<property name="maxActive" value="30" />
-		<property name="maxIdle" value="5" />
-	</bean>
-	
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource" />
-	</bean> -->
 	
 	<!-- 在dao中添加jdbc的支持时，请注入 dataSource或者 jdbcTemplate属性 -->
 	<bean id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -86,12 +71,12 @@
 	<!-- 定义aspectj -->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	
-	 <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">    
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">    
         <property name="converters">    
             <list>    
                 <bean class="com.app.utils.DateToConverter" />    
             </list>    
         </property>    
     </bean>  
-     <import resource="classpath:config/application-common.xml" />
+    <import resource="classpath:config/application-common.xml" />
 </beans>

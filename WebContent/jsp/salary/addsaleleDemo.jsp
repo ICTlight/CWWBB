@@ -4,25 +4,28 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-
+  <%@include file="/jsp/utils/meta.jsp" %> 
+  <%@include file="/jsp/utils/common_css.jsp" %> 
+  <%@include file="/jsp/utils/common_js.jsp" %> 
+  <%@include file="/jsp/utils/mypage_js.jsp" %>	
     <style type="text/css">    
        .modal-dialo {
 		    position: fixed; 
-		  text-align: center; 
-		  margin: 0px auto; 
-		 top: 0px; left: 0px; 
-		 bottom: 0px; 
-		 right: 0px; 
-		  z-index: 1050; 
+		    text-align: center; 
+		    margin: 0px auto; 
+		    top: 0px; left: 0px; 
+		    bottom: 0px; 
+		    right: 0px; 
+		    z-index: 1050; 
 		    width: 700px
 		}		
      </style>
 	<script type="text/javascript">
-     $(function(){
-	     $(document).on("hidden.bs.modal", function (e) {
-	 	    $(e.target).removeData("bs.modal").find(".modal-content").empty();
-	 	});
-     });
+	$(function(){
+		$("#addsaleleModel").on("hidden.bs.modal", function() {
+			$(this).remove(".modal");  	 
+		});
+	});
      </script>
      <script type="text/javascript">     
      
@@ -46,7 +49,7 @@
   </head>
   <body>
     <div class="modal fade" data-backdrop='static' id="addsaleleModel">
-        <div class="modal-dialo">
+        <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -70,18 +73,18 @@
 						                        <input type="text" class="form-control required" name="elename"  id="elename"  value=""/>
 						                      </div>
 						                    </div>
-						                    <div class="form-group">
+						                    <!-- <div class="form-group">
 						                      <label class="col-md-5 control-label">固定代码:</label>
 						                      <div class="col-md-7">
 						                        <input type="text" class="form-control required" name="fixedcode"  id="fixedcode"  value=""/>
 						                      </div>
-						                    </div>
+						                    </div> -->
 						                    <div class="form-group">
-						                      <label class="col-md-5 control-label">是否显示:</label>
+						                      <label class="col-md-5 control-label">显示项:</label>
 						                       <div class="col-md-7">			                       
-						                        <select class="form-control required" id="isshow" name="isshow">
-						                            <option value="显示">显示</option>
-								                    <option value="不显示">不显示</option>
+						                        <select class="form-control" id="isshow" name="isshow">
+						                            <option value="0">否</option>
+								                    <option value="1">是</option>
 								                  </select>
 						                      </div> 
 						                    </div> 
@@ -93,28 +96,28 @@
 		                     <div class="form-group">
 		                      <label class="col-md-5 control-label">税前后加减项:</label>
 		                       <div class="col-md-7">		                       
-		                        <select class="form-control required" id="cptype" name="cptype">
-				                    <option value="税无关">税无关</option>
-				                    <option value="税前加">税前加</option>
-				                    <option value="税前减">税前减</option>
-				                    <option value="税后加">税后加</option>
-				                    <option value="税后减">税后减</option>
-				                    <option value="应纳税所得额调整加">应纳税所得额调整加</option>
-				                    <option value="应纳税所得额调整减">应纳税所得额调整减</option>
-				                    <option value="税调整加">税调整加</option>
-				                    <option value="税调整减">税调整减</option>
-				                    <option value="税后推税（税后发公司付税）">税后推税（税后发公司付税）</option>
-				                    <option value="税后推税（税后不发公司付税）">税后推税（税后不发公司付税）</option>
+		                        <select class="form-control" id="cptype" name="cptype">
+				                    <option value="0">税无关</option>
+				                    <option value="1">税前加</option>
+				                    <option value="2">税前减</option>
+				                    <option value="3">税后加</option>
+				                    <option value="4">税后减</option>
+				                    <option value="5">应纳税所得额调整加</option>
+				                    <option value="6">应纳税所得额调整减</option>
+				                    <option value="7">税调整加</option>
+				                    <option value="8">税调整减</option>
+				                    <option value="9">税后推税（税后发公司付税）</option>
+				                    <option value="10">税后推税（税后不发公司付税）</option>
 				                  </select>
 		                      </div> 
 		                    </div>
 			          		<div class="form-group">
 			                	<label class="col-md-5 control-label">精确度:</label>
 			                 	<div class="col-md-7">
-				                  <select class="form-control required" id="precisions" name="precisions">
-				                    <option value="分位">分位</option>
-				                	<option value="角位">角位</option>
-				                	<option value="元位">元位</option>		
+				                  <select class="form-control" id="precisions" name="precisions">
+				                    <option value="0">分位</option>
+				                	<option value="1">角位</option>
+				                	<option value="2">元位</option>		
 				              	</select>
 			                	</div> 
 			              </div>		                    		                        
@@ -139,14 +142,14 @@
             $.ajax({ 
                  type: "POST", 
                  url: "<%=request.getContextPath() %>/saveSalEleDemo",
-                 async : false, 
+                 async : true, 
                  data: $("#validate-2").serialize(),
                  success: function(mes) { 
                  	if(mes.message=="success") {			
 			 			$("#addsaleleModel").modal("hide");
-			 			$("#addsaleleModel").empty();			 			
+			 			//$("#addsaleleModel").empty();			 			
 			 			alert("模板项创建成功");
-			 			torefreshdemo();
+			 			toadddemoeles();
 					}else{
 						alert("模板项创建失败");
 					} 

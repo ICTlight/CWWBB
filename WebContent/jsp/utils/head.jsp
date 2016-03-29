@@ -1,8 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@include file="/jsp/utils/taglibs.jsp" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <%@include file="/jsp/utils/meta.jsp" %> 
 </head>
 <body>
 	<%session = request.getSession();   %>
@@ -12,7 +13,7 @@
 	<h1 id="status" style="display:none" ><%=session.getAttribute("status")%></h1>
 	<h1 id="email" style="display:none" ><%=session.getAttribute("email")%></h1>  -->
 	<a id="tomypage" href="/CWWBB/jsp/mypage.jsp" style="display:none"></a>
-	        <div class="box">
+	        <div class="container-fluid box">
             <div id="logo"><img src="<%=request.getContextPath() %>/assets/img/fesco90.png" alt="logo" /><a id="logotorefresh" href="/CWWBB/jsp/firstpage.jsp"></a></div>
             <div class="mobile-nav">
                 <span class="hamburger"></span>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.salary.domain.SalaryLocalStand">
+<resultMap id="salaryLocalStandMapper"  type="com.app.salary.domain.SalaryLocalStand">
+    	<id  property="standid" column="standid"  javaType="long" jdbcType="NUMERIC"/>
+    	<result property="standname" column="standname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="yanglc" column="yanglc"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result property="yanglg" column="yanglg"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result property="yilc" column="yilc"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result property="yilg" column="yilg"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="shiyc" column="shiyc"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="shiyg" column="shiyg"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="gongsc" column="gongsc"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="shengyc" column="shengyc"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="zhufc" column="zhufc"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="zhufg" column="zhufg"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="lowlimit" column="lowlimit"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="uplimit" column="uplimit"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="averagesal" column="averagesal"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>       
+        <result  property="areacode" column="areacode"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="areaname" column="areaname"  javaType="java.lang.String" jdbcType="VARCHAR"/>        
+        <result  property="createby" column="createby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="statu" column="statu"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="updateby" column="updateby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
+        <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>  
+        <result  property="shiyb" column="shiyb"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="yilb" column="yilb"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="gongsb" column="gongsb"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="shengyb" column="shengyb"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="zhufb" column="zhufb"  javaType="java.math.BigDecimal" jdbcType="NUMERIC"/>
+        <result  property="usedate" column="usedate"  javaType="java.lang.String" jdbcType="VARCHAR"/>      
+    </resultMap>   
+  <select id="findSalLocalStandByAreacode" parameterType="java.lang.String" resultType="com.app.salary.domain.SalaryLocalStand">
+  	<![CDATA[
+  	 SELECT * FROM sa_local_stand WHERE areacode=#{areacode} and statu="0"
+  	]]>
+  </select>
+  <select id="findSalLocalStandList" resultType="com.app.salary.domain.SalaryLocalStand">
+  	<![CDATA[
+  	 SELECT * FROM sa_local_stand WHERE statu="0"
+  	]]>
+  </select>  
+</mapper>

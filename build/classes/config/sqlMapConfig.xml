@@ -5,16 +5,22 @@
 <configuration>	
 	<mappers>
 		<!-- 用户相关 -->
-		<mapper resource="com/app/domain/user/PersonMapper.xml" />
-		<mapper resource="com/app/domain/user/CompanyMapper.xml" />
-		<mapper resource="com/app/domain/user/UserMapper.xml" />
+		<mapper resource="com/app/user/domain/PersonMapper.xml" />
+		<mapper resource="com/app/user/domain/CompanyMapper.xml" />
+		<mapper resource="com/app/user/domain/UserMapper.xml" />
 		
 		<!-- 工资模板相关 -->
-		<mapper resource="com/app/domain/salary/SalaryDemoMapper.xml" />
-		<mapper resource="com/app/domain/salary/SalaryDemoEleMapper.xml" />
-		<mapper resource="com/app/domain/salary/SalaryStandEleMapper.xml" />
-		<mapper resource="com/app/domain/salary/SalaryDemoStEleMapper.xml" />
-		<mapper resource="com/app/domain/salary/SalaryItemMapper.xml" />
+		<mapper resource="com/app/salary/domain/SalaryDemoMapper.xml" />
+		<mapper resource="com/app/salary/domain/SalaryDemoEleMapper.xml" />
+		<mapper resource="com/app/salary/domain/SalaryStandEleMapper.xml" />
+		<mapper resource="com/app/salary/domain/SalaryDemoStEleMapper.xml" />
+		<mapper resource="com/app/salary/domain/SalaryItemMapper.xml" />
+		<mapper resource="com/app/salary/domain/SalaryLocalStandMapper.xml" />
+		
+		<!-- 薪酬计算相关 -->
+		<mapper resource="com/app/cpsal/domain/SalaryCountMapper.xml" />
+		<mapper resource="com/app/cpsal/domain/SalaryPayMapper.xml" />
+		<mapper resource="com/app/cpsal/domain/SalaryPayItemsMapper.xml" />
 	</mappers>
 </configuration>
     

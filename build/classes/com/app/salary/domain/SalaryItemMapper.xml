@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.salary.domain.SalaryItem">
+<resultMap id="salaryItemMapper"  type="com.app.salary.domain.SalaryItem">
+    	<id  property="salitemid" column="salitemid"  javaType="long" jdbcType="NUMERIC"/>
+    	<result  property="eleid" column="eleid"  javaType="long" jdbcType="NUMERIC"/>
+        <result property="elename" column="elename"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="peid" column="peid"  javaType="long" jdbcType="NUMERIC"/>
+        <result property="pename" column="pename"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="basevalue" column="basevalue"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="fixedcode" column="fixedcode"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="demoid" column="demoid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="demoname" column="demoname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coname" column="coname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="idnumber" column="idnumber"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="isstop" column="isstop"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="cptype" column="cptype"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coid" column="coid"  javaType="long" jdbcType="NUMERIC"/>
+        <result  property="statu" column="statu"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="isstand" column="isstand"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="standval" column="standval"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createby" column="createby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="updateby" column="updateby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
+        <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>        
+    </resultMap>
+    
+    <insert id="saveSalItem" parameterType="com.app.salary.domain.SalaryItem">    
+      INSERT INTO sa_items (salitemid,eleid,elename,peid,pename,basevalue,isstand,standval,fixedcode,isstop,coid,demoname,demoid,coname,statu,createby,idnumber,cptype,createtime)
+      VALUES(
+        #{salitemid,jdbcType=NUMERIC},
+        #{eleid,jdbcType=NUMERIC},
+        #{elename,jdbcType=VARCHAR},
+        #{peid,jdbcType=NUMERIC},        
+        #{pename,jdbcType=VARCHAR},        
+        #{basevalue,jdbcType=VARCHAR},
+        #{isstand,jdbcType=VARCHAR},
+        #{standval,jdbcType=VARCHAR},
+        #{fixedcode,jdbcType=VARCHAR},
+        #{isstop,jdbcType=VARCHAR},        
+        #{coid,jdbcType=NUMERIC}, 
+        #{demoname,jdbcType=NUMERIC},  
+        #{demoid,jdbcType=NUMERIC},  
+        #{coname,jdbcType=VARCHAR},
+        #{statu,jdbcType=VARCHAR},        
+        #{createby,jdbcType=VARCHAR},
+        #{idnumber,jdbcType=VARCHAR},  
+        #{cptype,jdbcType=VARCHAR},  
+        #{createtime,jdbcType=DATE}   
+     )
+  </insert>
+  <update id="updateSalItembyid" parameterType="com.app.salary.domain.SalaryItem">      
+      UPDATE sa_items 
+      <set>
+      <if test="basevalue!=null and basevalue!=''"> 
+      		basevalue=#{basevalue,jdbcType=VARCHAR},
+      </if>
+      <if test="isstand!=null and isstand!=''"> 
+      		isstand=#{isstand,jdbcType=VARCHAR},
+      </if>
+      <if test="standval!=null and standval!=''"> 
+      		standval=#{standval,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE salitemid=#{salitemid}
+  </update>
+  
+	<!-- 根据id查找用户信息 -->
+  <select id="findSalItemByDemoid" parameterType="Long" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	 SELECT DISTINCT eleid,elename FROM sa_items WHERE demoid=#{demoid} and statu="0"
+  	]]>
+  </select>
+  
+  <select id="getsalitemid" parameterType="Long" resultType="Long">
+  	<![CDATA[
+  	 SELECT _nextval('sa_items')
+  	]]>
+  </select>
+  
+  <!-- 根据模板id查找模板信息 -->
+  <select id="findSalItemByEleid" parameterType="Long" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	 SELECT * FROM sa_items WHERE eleid=#{eleid} and statu="0"
+  	]]>
+  </select>
+  <!-- 根据企业id查找模板信息 -->
+  <select id="findSalItemBycoid" parameterType="Long" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	 SELECT * FROM sa_items WHERE coid=#{coid} and statu="0"
+  	]]>
+  </select>
+  
+  
+  
+  <select id="findSalbsItemByPeid" parameterType="Long" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	 SELECT * FROM sa_items WHERE peid=#{peid} and statu="0" and isstand="1"
+  	]]>
+  </select>
+  
+  <select id="findDemoByPeid" parameterType="Long" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	 SELECT DISTINCT demoid,demoname FROM sa_items WHERE peid=#{peid} and statu="0"
+  	]]>
+  </select>
+  
+  
+  <select id="findCptypelist" parameterType="Long" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	 SELECT DISTINCT cptype FROM sa_items  WHERE  demoid=#{demoid} and statu="0" AND isstand=1
+  	]]>
+  </select>
+  <select id="findPellistByDemoid" parameterType="Long" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	 SELECT DISTINCT peid,pename FROM sa_items  WHERE  demoid=#{demoid} and statu="0"
+  	]]>
+  </select>
+  <select id="findPeldelistByPeid" parameterType="Long" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	 SELECT * FROM sa_items  WHERE  peid=#{peid} and statu="0" and isstand="1"
+  	]]>
+  </select>
+  <select id="findSallistByType" parameterType="com.app.salary.domain.SalaryItem" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	SELECT * FROM sa_items  WHERE  peid=#{peid} AND demoid=#{demoid} AND cptype=#{cptype} AND statu="0" AND isstand=1
+  	]]>
+  </select>
+  <select id="findSalstlistByPeid" parameterType="Long" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	SELECT * FROM sa_items WHERE peid=#{peid} AND isstand="0" AND statu="0"
+  	]]>
+  </select>
+  
+  <select id="findPenameByPeid" parameterType="Long" resultType="java.lang.String">
+  	<![CDATA[
+  	 SELECT DISTINCT pename FROM sa_items WHERE peid=#{peid} and statu="0"
+  	]]>
+  </select>
+  <select id = "findSalItemCountByDemoid" parameterType = "Long" resultType = "int" >
+       SELECT COUNT(*) FROM sa_items WHERE demoid=#{demoid} and statu="0"
+  </select>
+  <select id = "findSalItemCountByPeid" parameterType = "Long" resultType = "int">
+       SELECT COUNT(*) FROM sa_items WHERE peid=#{peid} and statu="0"
+  </select>
+  <update id="deleteDemopel" parameterType="com.app.salary.domain.SalaryItem">      
+      UPDATE sa_items 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE peid=#{peid} and statu="0"
+  </update>
+  <update id="deleteDemopelbyeleid" parameterType="com.app.salary.domain.SalaryItem">      
+      UPDATE sa_items 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE eleid=#{eleid} and statu="0"
+  </update>
+  
+  <update id="deleteDemopelbydemoid" parameterType="com.app.salary.domain.SalaryItem">      
+      UPDATE sa_items 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE demoid=#{demoid} and statu="0"
+  </update>
+  <select id="findDemoIdnumber" parameterType="com.app.salary.domain.SalaryItem" resultType="com.app.salary.domain.SalaryItem">
+  	<![CDATA[
+  	 SELECT DISTINCT demoid,demoname FROM sa_items WHERE idnumber=#{idnumber} AND coid=#{coid} AND statu="0" 
+  	]]>
+  </select>
+</mapper>

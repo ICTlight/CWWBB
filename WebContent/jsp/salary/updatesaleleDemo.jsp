@@ -4,7 +4,10 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-
+  <%@include file="/jsp/utils/meta.jsp" %> 
+  <%@include file="/jsp/utils/common_css.jsp" %> 
+  <%@include file="/jsp/utils/common_js.jsp" %> 
+  <%@include file="/jsp/utils/mypage_js.jsp" %>	
     <style type="text/css">    
        .modal-dialo {
 		    position: fixed; 
@@ -19,16 +22,11 @@
      </style>    
 	<script type="text/javascript">
      $(function(){
-	     $(document).on("hidden.bs.modal", function (e) {
-	 	    $(e.target).removeData("bs.modal").find(".modal-content").empty();
-	 	});
+    	 $("#updatesaleleModel").on("hidden.bs.modal", function() {
+    		 $(this).remove(".modal");  		 
+    	});
      });
      </script>
-     <script type="text/javascript">     
-     
-       $(function(){	       
-        }); 
-       </script>
   </head>
   <body>
     <div class="modal fade" data-backdrop='static' id="updatesaleleModel">
@@ -57,18 +55,18 @@
 						                        <input type="text" class="form-control required" name="elename"  id="elename"  value="${salaryDemoEle.elename}"/>
 						                      </div>
 						                    </div>
-						                    <div class="form-group">
+						                    <%-- <div class="form-group">
 						                      <label class="col-md-5 control-label">固定代码:</label>
 						                      <div class="col-md-7">
 						                        <input type="text" class="form-control required" name="fixedcode"  id="fixedcode"  value="${salaryDemoEle.fixedcode}"/>
 						                      </div>
-						                    </div>
+						                    </div> --%>
 						                    <div class="form-group">
-						                      <label class="col-md-5 control-label">是否显示:</label>
+						                      <label class="col-md-5 control-label">显示项:</label>
 						                       <div class="col-md-7">			                       
-						                        <select class="form-control required" id="isshow" name="isshow">
-						                            <option <c:if test="${'显示'==salaryDemoEle.isshow}">selected</c:if> value="<c:out value="显示"></c:out>" ><c:out value="显示"></c:out></option>
-				                                    <option <c:if test="${'不显示'==salaryDemoEle.isshow}">selected</c:if> value="<c:out value="不显示"></c:out>" ><c:out value="不显示"></c:out></option>					
+						                        <select class="form-control" id="isshow" name="isshow">
+						                            <option <c:if test="${'0'==salaryDemoEle.isshow}">selected</c:if> value="<c:out value="0"></c:out>" ><c:out value="否"></c:out></option>
+				                                    <option <c:if test="${'1'==salaryDemoEle.isshow}">selected</c:if> value="<c:out value="1"></c:out>" ><c:out value="是"></c:out></option>					
 								                  </select>
 						                      </div> 
 						                    </div> 
@@ -80,28 +78,28 @@
 		                     <div class="form-group">
 		                      <label class="col-md-5 control-label">税前后加减项:</label>
 		                       <div class="col-md-7">		                       
-		                        <select class="form-control required" id="cptype" name="cptype">
-				                    <option <c:if test="${'税无关'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="税无关"></c:out>" ><c:out value="税无关"></c:out></option>
-				                    <option <c:if test="${'税前加'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="税前加"></c:out>" ><c:out value="税前加"></c:out></option>	
-				                    <option <c:if test="${'税前减'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="税前减"></c:out>" ><c:out value="税前减"></c:out></option>	
-				                    <option <c:if test="${'税后加'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="税后加"></c:out>" ><c:out value="税后加"></c:out></option>
-				                    <option <c:if test="${'税后减'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="税后减"></c:out>" ><c:out value="税后减"></c:out></option>	
-				                    <option <c:if test="${'应纳税所得额调整加'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="应纳税所得额调整加"></c:out>" ><c:out value="应纳税所得额调整加"></c:out></option>	
-				                    <option <c:if test="${'应纳税所得额调整减'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="应纳税所得额调整减"></c:out>" ><c:out value="应纳税所得额调整减"></c:out></option>
-				                    <option <c:if test="${'税调整加'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="税调整加"></c:out>" ><c:out value="税调整加"></c:out></option>	
-				                    <option <c:if test="${'税调整减'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="税调整减"></c:out>" ><c:out value="税调整减"></c:out></option>	
-				                    <option <c:if test="${'税后推税（税后发公司付税）'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="税后推税（税后发公司付税）"></c:out>" ><c:out value="税后推税（税后发公司付税）"></c:out></option>	
-				                    <option <c:if test="${'税后推税（税后不发公司付税）'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="税后推税（税后不发公司付税）"></c:out>" ><c:out value="税后推税（税后不发公司付税）"></c:out></option>	
+		                        <select class="form-control" id="cptype" name="cptype">
+				                    <option <c:if test="${'0'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="0"></c:out>" ><c:out value="税无关"></c:out></option>
+				                    <option <c:if test="${'1'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="1"></c:out>" ><c:out value="税前加"></c:out></option>	
+				                    <option <c:if test="${'2'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="2"></c:out>" ><c:out value="税前减"></c:out></option>	
+				                    <option <c:if test="${'3'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="3"></c:out>" ><c:out value="税后加"></c:out></option>
+				                    <option <c:if test="${'4'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="4"></c:out>" ><c:out value="税后减"></c:out></option>	
+				                    <option <c:if test="${'5'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="5"></c:out>" ><c:out value="应纳税所得额调整加"></c:out></option>	
+				                    <option <c:if test="${'6'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="6"></c:out>" ><c:out value="应纳税所得额调整减"></c:out></option>
+				                    <option <c:if test="${'7'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="7"></c:out>" ><c:out value="税调整加"></c:out></option>	
+				                    <option <c:if test="${'8'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="8"></c:out>" ><c:out value="税调整减"></c:out></option>	
+				                    <option <c:if test="${'9'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="9"></c:out>" ><c:out value="税后推税（税后发公司付税）"></c:out></option>	
+				                    <option <c:if test="${'10'==salaryDemoEle.cptype}">selected</c:if> value="<c:out value="10"></c:out>" ><c:out value="税后推税（税后不发公司付税）"></c:out></option>	
 				                  </select>
 		                      </div> 
 		                    </div>
 			          		<div class="form-group">
 			                	<label class="col-md-5 control-label">精确度:</label>
 			                 	<div class="col-md-7">
-				                  <select class="form-control required" id="precisions" name="precisions">
-				                    <option <c:if test="${'分位'==salaryDemoEle.precisions}">selected</c:if> value="<c:out value="分位"></c:out>" ><c:out value="分位"></c:out></option>
-				                    <option <c:if test="${'角位'==salaryDemoEle.precisions}">selected</c:if> value="<c:out value="角位"></c:out>" ><c:out value="角位"></c:out></option>	
-				                    <option <c:if test="${'元位'==salaryDemoEle.precisions}">selected</c:if> value="<c:out value="元位"></c:out>" ><c:out value="元位"></c:out></option>																	                    
+				                  <select class="form-control" id="precisions" name="precisions">
+				                    <option <c:if test="${'0'==salaryDemoEle.precisions}">selected</c:if> value="<c:out value="0"></c:out>" ><c:out value="分位"></c:out></option>
+				                    <option <c:if test="${'1'==salaryDemoEle.precisions}">selected</c:if> value="<c:out value="1"></c:out>" ><c:out value="角位"></c:out></option>	
+				                    <option <c:if test="${'2'==salaryDemoEle.precisions}">selected</c:if> value="<c:out value="2"></c:out>" ><c:out value="元位"></c:out></option>																	                    
 				              	</select>
 			                	</div> 
 			              </div>		                    		                        
@@ -127,13 +125,13 @@
             $.ajax({ 
                  type: "POST", 
                  url: "<%=request.getContextPath() %>/updatedemoele",
-                 async : false, 
+                 async : true, 
                  data: $("#validate-2").serialize(),
                  success: function(mes) { 
                  	if(mes.message=="success") {			
 			 			$("#updatesaleleModel").modal("hide");
-			 			$("#updatesaleleModel").empty();
-			 			torefreshdemo();
+			 			//$("#updatesaleleModel").empty();
+			 			toadddemoeles();
 			 			alert("模板项修改成功");
 					}else{
 						alert("模板项修改失败");

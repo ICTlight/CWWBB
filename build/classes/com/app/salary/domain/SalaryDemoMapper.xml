@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.salary.domain.SalaryDemo">
+<resultMap id="salaryDemoMapper"  type="com.app.salary.domain.SalaryDemo">
+    	<id  property="saldemoid" column="saldemoid"  javaType="long" jdbcType="NUMERIC"/>
+        <result property="saldemoname" column="saldemoname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="saldemoen" column="saldemoen"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="saldemost" column="saldemost"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="saldemods" column="saldemods"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="coid" column="coid"  javaType="long" jdbcType="NUMERIC"/>
+        <result property="coname" column="coname"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="statu" column="statu"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createby" column="createby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="updateby" column="updateby"  javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result  property="createtime" column="createtime"  javaType="java.util.Date" jdbcType="DATE"/> 
+        <result  property="updatetime" column="updatetime"  javaType="java.util.Date" jdbcType="DATE"/>        
+    </resultMap>
+    
+    <insert id="saveSaldemo" parameterType="com.app.salary.domain.SalaryDemo">    
+      INSERT INTO sa_demos (saldemoid,saldemoname,saldemoen,saldemost,saldemods,coid,coname,createby,updateby,createtime,statu,updatetime)
+      VALUES(
+        #{saldemoid,jdbcType=NUMERIC},
+        #{saldemoname,jdbcType=VARCHAR},
+        #{saldemoen,jdbcType=VARCHAR},        
+        #{saldemost,jdbcType=VARCHAR},        
+        #{saldemods,jdbcType=VARCHAR},
+        #{coid,jdbcType=NUMERIC},  
+        #{coname,jdbcType=VARCHAR},        
+        #{createby,jdbcType=VARCHAR},        
+        #{updateby,jdbcType=VARCHAR}, 
+        #{createtime,jdbcType=DATE},
+        #{statu,jdbcType=VARCHAR},
+        #{updatetime,jdbcType=DATE}    
+     )
+  </insert>
+	<!-- 根据id查找用户信息 -->
+  <select id="findSaldemoBySaldemoid" parameterType="Long" resultType="com.app.salary.domain.SalaryDemo">
+  	<![CDATA[
+  	 SELECT * FROM sa_demos WHERE saldemoid=#{saldemoid}  and statu="0"
+  	]]>
+  </select>
+  
+  <select id="getsaldemoid" parameterType="Long" resultType="Long">
+  	<![CDATA[
+  	 SELECT _nextval('sa_demos')
+  	]]>
+  </select>
+  
+  <!-- 根据企业id查找模板信息 -->
+  <select id="findSaldemoByCoid" parameterType="Long" resultType="com.app.salary.domain.SalaryDemo">
+  	<![CDATA[
+  	 SELECT * FROM sa_demos WHERE coid=#{coid}  and statu="0"
+  	]]>
+  </select>
+  
+  
+  <update id="delsaldemobyid" parameterType="com.app.salary.domain.SalaryDemo">      
+      UPDATE sa_demos 
+      <set>
+      <if test="statu!=null and statu!=''"> 
+      		statu=#{statu,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby!=null and updateby!=''"> 
+      		updateby=#{updateby,jdbcType=VARCHAR},
+      </if>     
+      <if test="updatetime!=null and updatetime!=''"> 
+      		updatetime=#{updatetime,jdbcType=DATE}
+      </if>
+      </set>
+      WHERE saldemoid=#{saldemoid} 
+  </update>
+</mapper>
